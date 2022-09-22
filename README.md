@@ -1,9 +1,18 @@
 # travelapp
 
+## What you will need
+- [NodeJS](https://nodejs.org/en/) (ensure that you select `npm package manager` under 'Custom Setup')
+- [Vue.js](https://v2.vuejs.org/) (`npm install vue`)
+- [Vue CLI](https://cli.vuejs.org/#getting-started) (`npm install -g @vue/cli`)
+- [Vuetify](https://vuetifyjs.com/en/) (`npm install vuetify`)
+
 ## Project setup
+
+Under both the `/client/` and `/server/` directories, run the following terminal command:
 ```
 npm install
 ```
+or `npm i` in order to install the required dependencies
 
 ### Compiles and hot-reloads for development
 ```
