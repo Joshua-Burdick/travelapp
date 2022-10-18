@@ -34,6 +34,10 @@
 
         <br><br>
 
+        <!-- Send to register page -->
+        <p>Not a member yet? <button id="register" @click="$router.push('/register')">Register here!</button></p>
+        <br><br>
+
         <!-- Go back to home page -->
         <v-btn
             elevation="2"
@@ -58,5 +62,9 @@ export default {
 <style scoped>
     #username-box, #password-box {
         margin-left: 37%;
+    }
+
+    #register {
+        color: blue;
     }
 </style>
