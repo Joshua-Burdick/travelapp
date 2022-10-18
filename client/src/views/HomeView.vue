@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    This will be the home view for the app!
+    <button @click="$router.push('/search')">Search</button>
   </div>
 </template>
 
