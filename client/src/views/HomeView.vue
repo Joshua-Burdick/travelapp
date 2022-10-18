@@ -1,11 +1,20 @@
 <template>
   <div class="home">
-    <p> Here's some text </p>
-        <v-btn
-            elevation="2"
-            @click="$router.push('/search')"
-        >Search
-        </v-btn>
+    <!-- Login Button -->
+    <v-btn
+      elevation="2"
+      @click="$router.push('/login')"
+    >
+      LOGIN
+    </v-btn>
+    <br><br><br>
+    <!-- Search button -->
+    <v-btn
+        elevation="2"
+        @click="$router.push('/search')"
+    >
+      Search
+    </v-btn>
   </div>
 </template>
 
