@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-    <button @click="$router.push('/search')">Search</button>
+    <p> Here's some text </p>
+        <v-btn
+            elevation="2"
+            @click="$router.push('/search')"
+        >Search
+        </v-btn>
   </div>
 </template>
 
