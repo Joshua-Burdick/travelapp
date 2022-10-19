@@ -53,7 +53,7 @@
 export default {
     data: () => {
         return {
-            rules: [v => v.length <= 20 || "Max 20 characters"]
+            rules: [val => val.length <= 20 || "Max 20 characters"]
         }
     }
 }
