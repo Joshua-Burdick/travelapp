@@ -22,13 +22,8 @@ const routes = [
   },
   {
     path: '/search/:country?%:state?%:city?',
-    name: 'param-search',
-    component: () => import('../views/SearchPage.vue')
-  },
-  {
-    path: '/search/invalid',
-    name: 'invalid-search',
-    component: () => import('../views/LoginPage.vue')
+    name: 'search',
+    component: () => import('../views/SearchPage.vue'),
   },
   {
     path: '/login',
@@ -39,6 +34,11 @@ const routes = [
     path: '/register',
     name: 'register',
     component: () => import('../views/RegisterPage.vue')
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('../views/404Error.vue')
   }
 ]
 

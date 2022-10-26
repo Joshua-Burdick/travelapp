@@ -89,6 +89,8 @@ export default {
   },
   methods: {
     search() {
+      this.validSearch = true;
+      
       let search = new SearchHandler();
       let searchable = search.validateSearch(this.country, this.state, this.city);
       if (searchable) this.$router.push(`/search/${this.country}%${this.state}%${this.city}`);
