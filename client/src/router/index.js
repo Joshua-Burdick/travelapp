@@ -22,8 +22,13 @@ const routes = [
   },
   {
     path: '/search/:country?%:state?%:city?',
-    name: 'search',
-    component: () => import('../views/SearchPage.vue'),
+    name: 'param-search',
+    component: () => import('../views/SearchPage.vue')
+  },
+  {
+    path: '/search/invalid',
+    name: 'invalid-search',
+    component: () => import('../views/LoginPage.vue')
   },
   {
     path: '/login',

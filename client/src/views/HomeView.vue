@@ -52,6 +52,10 @@
       </v-text-field>
     </v-col>
 
+    <!-- If Invalid Search -->
+    <p v-if="validSearch === false" id="invalid-search-error">Invalid Search</p>
+    <br>
+
     <!-- Search button -->
     <v-btn
         elevation="2"
@@ -65,6 +69,8 @@
 <script>
 // @ is an alias to /src
 
+import SearchHandler from '../classes/SearchHandler.js';
+
 export default {
   name: 'HomeView',
   components: {
@@ -74,7 +80,8 @@ export default {
     return {
       country: "",
       state: "",
-      city: ""
+      city: "",
+      validSearch: true
     }
   },
   async mounted() {
@@ -82,8 +89,10 @@ export default {
   },
   methods: {
     search() {
-      if (this.country == "" && this.state == "" && this.city == "") this.$router.push('/search');
-      else this.$router.push(`/search/${this.country}%${this.state}%${this.city}`);
+      let search = new SearchHandler();
+      let searchable = search.validateSearch(this.country, this.state, this.city);
+      if (searchable) this.$router.push(`/search/${this.country}%${this.state}%${this.city}`);
+      else this.validSearch = false;
     }
   }
 }
@@ -92,5 +101,9 @@ export default {
 <style scoped>
   #country-box, #state-box, #city-box {
     margin-left: 37%;
+  }
+
+  #invalid-search-error {
+    color: rgb(230, 35, 35);
   }
 </style>
