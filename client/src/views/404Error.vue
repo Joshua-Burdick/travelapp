@@ -31,6 +31,6 @@
     #err-num {
         font-size: 48pt;
         color: red;
-        margin-top: 30%;
+        margin-top: 20%;
     }
 </style>

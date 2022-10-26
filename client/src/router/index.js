@@ -36,7 +36,7 @@ const routes = [
     component: () => import('../views/RegisterPage.vue')
   },
   {
-    path: '/404',
+    path: '/*',
     name: '404',
     component: () => import('../views/404Error.vue')
   }
