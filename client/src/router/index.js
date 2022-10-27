@@ -28,7 +28,7 @@ const routes = [
     component: SearchPage
   },
   {
-    path: '/search/:country?%:state?%:city?',
+    path: '/search/:country?%:state?%:city?%budget=:budget?',
     name: 'search',
     component: SearchPage
   },
