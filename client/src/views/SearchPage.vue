@@ -16,24 +16,24 @@
 </template>
 
 <script>
-    export default {
-        data: () => {
-            return {
-                budget: 0
-            }
-        },
-        async mounted() {
-            document.title = "TravelApp - Search";
-            this.convertBudget();
-        },
-        methods: {
-            convertBudget() {
-                let rbudget = this.$route.params.budget;
-                if (rbudget.length != 0) {
-                    let nbudget = Number(rbudget);
-                    if (!isNaN(nbudget)) this.budget = nbudget;
-                }
+export default {
+    data: () => {
+        return {
+            budget: 0
+        }
+    },
+    async mounted() {
+        document.title = "TravelApp - Search";
+        this.convertBudget();
+    },
+    methods: {
+        convertBudget() {
+            let rbudget = this.$route.params.budget;
+            if (rbudget.length != 0) {
+                let nbudget = Number(rbudget);
+                if (!isNaN(nbudget)) this.budget = nbudget;
             }
         }
     }
+}
 </script>

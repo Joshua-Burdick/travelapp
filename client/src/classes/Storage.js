@@ -3,7 +3,7 @@ export default class Storage {
 
     // Get an item from local storage
     static get(item) {
-        localStorage.getItem(item);
+        return localStorage.getItem(item);
     }
 
     // Set/Create a var in local storage and give/init to a value
@@ -23,6 +23,6 @@ export default class Storage {
 
     // Returns the key at the associated index in storage
     static key(ind) {
-        localStorage.key(ind);
+        return localStorage.key(ind);
     }
 }
