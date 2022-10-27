@@ -1,5 +1,5 @@
 export default class SearchHandler {
-    SearchHandler() {}
+    constructor() {}
 
     validateSearch(country, state, city) {
         if (country == "" && state == "" && city == "") {
