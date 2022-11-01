@@ -1,7 +1,7 @@
 <template>
     <div>
         <br><br>
-        <p>You searched (Country, State, City)<br>{{this.$route.params.country}}<br>{{this.$route.params.state}}<br>{{this.$route.params.city}}</p>
+        <p>You searched (Country, City)<br>{{this.$route.params.country}}<br>{{this.$route.params.city}}</p>
         <br>
         <p v-if="budget != 0">With a budget of ${{budget}}</p>
         <br><br>

@@ -25,20 +25,6 @@
     </v-col>
 
     <v-col
-      id="state-box"
-      cols="12"
-      sm="6"
-      md="3"
-    >
-      <v-text-field
-          label="State"
-          v-model="state"
-          @keyup.enter="search()"
-      >
-      </v-text-field>
-    </v-col>
-
-    <v-col
       id="city-box"
       cols="12"
       sm="6"
@@ -93,7 +79,6 @@ export default {
   data: ()=> {
     return {
       country: "",
-      state: "",
       city: "",
       budget: "",
       validSearch: true
@@ -107,8 +92,8 @@ export default {
       this.validSearch = true;
       
       let search = new SearchHandler();
-      let searchable = search.validateSearch(this.country, this.state, this.city);
-      if (searchable) this.$router.push(`/search/${this.country}%${this.state}%${this.city}%budget=${this.budget}`);
+      let searchable = search.validateSearch(this.country, this.city);
+      if (searchable) this.$router.push(`/search/${this.country}%${this.city}%budget=${this.budget}`);
       else this.validSearch = false;
     }
   }
@@ -116,7 +101,7 @@ export default {
 </script>
 
 <style scoped>
-  #country-box, #state-box, #city-box, #budget-box {
+  #country-box, #city-box, #budget-box {
     margin-left: 37%;
   }
 

@@ -1,8 +1,8 @@
 export default class SearchHandler {
     constructor() {}
 
-    validateSearch(country, state, city) {
-        if (country == "" && state == "" && city == "") {
+    validateSearch(country, city) {
+        if (country == "" && city == "") {
             return false;
         }
         else return true;
