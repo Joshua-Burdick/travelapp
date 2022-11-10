@@ -1,26 +1,21 @@
 <template>
     <div>
-        <br><br>
-        <p>You searched (Country, City)<br>{{this.$route.params.country}}<br>{{this.$route.params.city}}</p>
-        <br>
-        <p v-if="budget != 0">With a budget of ${{budget}}</p>
-        <br><br>
-
-        <v-btn
-            elevation="2"
-            @click="$router.push('/')"
-        >
-            Back
-        </v-btn>
+        <MapComponent/>
     </div>
 </template>
 
 <script>
+
+import MapComponent from "../components/MapComponent"
+
 export default {
     data: () => {
         return {
-            budget: 0
+            budget: 0,
         }
+    },
+    components: {
+        MapComponent
     },
     async mounted() {
         document.title = "TravelApp - Search";
@@ -37,3 +32,17 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    #map {
+        position: relative;
+        z-index: 0;
+    }
+
+    #some-text {
+        position: absolute;
+        margin-top: 5%;
+        margin-left: 0.5%;
+        z-index: 2;
+    }
+</style>
