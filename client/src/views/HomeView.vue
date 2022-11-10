@@ -7,6 +7,14 @@
     >
       LOGIN
     </v-btn>
+
+    <v-btn
+            elevation="2"
+            @click="$router.push('/FlightBooking')"
+        >
+            Book Flight
+        </v-btn>
+
     <br><br><br>
 
     <!-- Search criteria -->

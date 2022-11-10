@@ -7,6 +7,8 @@ import SearchPage from '../views/SearchPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import ErrorPage from '../views/404Error.vue'
+import FlightBooking from '../views/FlightBooking.vue'
+
 
 
 Vue.use(VueRouter)
@@ -28,7 +30,7 @@ const routes = [
     component: SearchPage
   },
   {
-    path: '/search/:country?%:state?%:city?%budget=:budget?',
+    path: '/search/:country?%:city?%budget=:budget?',
     name: 'search',
     component: SearchPage
   },
@@ -41,6 +43,11 @@ const routes = [
     path: '/register',
     name: 'register',
     component: RegisterPage
+  },
+  {
+    path: '/FlightBooking',
+    name: 'FlightBooking',
+    component: FlightBooking
   },
   {
     path: '/*',
