@@ -1,28 +1,38 @@
 <template>
     <div>
-        <br><br>
-        <p>You searched (Country, City)<br>{{this.$route.params.country}}<br>{{this.$route.params.city}}</p>
-        <br>
-        <p v-if="budget != 0">With a budget of ${{budget}}</p>
-        <br><br>
+        <MapComponent/>
 
-        <v-btn
+        <v-card
+            id="some-text"
             elevation="2"
-            @click="$router.push('/')"
         >
-            Back
-        </v-btn>
+            <v-card-title>Test</v-card-title>
+            <v-card-text>
+                <div>Latitude: {{ lat() }}</div>
+                <br>
+                <div>Longitude: {{ lng() }}</div>
+                <br>
+                <div>Budget: $ {{ budget() }}</div>
+            </v-card-text>
+        </v-card>
     </div>
 </template>
 
 <script>
+
+import MapComponent from "../components/MapComponent"
+import Storage from "../classes/Storage.js"
+
 export default {
     data: () => {
         return {
-            budget: 0
+
         }
     },
-    async mounted() {
+    components: {
+        MapComponent
+    },
+    mounted() {
         document.title = "TravelApp - Search";
         this.convertBudget();
     },
@@ -33,7 +43,30 @@ export default {
                 let nbudget = Number(rbudget);
                 if (!isNaN(nbudget)) this.budget = nbudget;
             }
+        },
+        lat() {
+            return Storage.get('Latitude');
+        },
+        lng() {
+            return Storage.get('Longitude');
+        },
+        budget() {
+            return Storage.get('Budget');
         }
     }
 }
 </script>
+
+<style scoped>
+    #map {
+        position: relative;
+        z-index: 0;
+    }
+
+    #some-text {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        margin-left: 60%;
+    }
+</style>
