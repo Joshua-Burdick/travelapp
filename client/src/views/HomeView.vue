@@ -7,7 +7,6 @@
       @click="$router.push({name: 'login'})"
     > LOGIN
     </v-btn>
-    <br /><br /><br />
 
     <!-- Search criteria -->
     <div id="loc-box">
@@ -16,8 +15,9 @@
         @place_changed="setPlace"
         placeholder="Shall we play a game?"
         icon="../assets/logo.png"
-        @keyup.enter="$router.push({name: 'search'})"
-      ></GmapAutocomplete>
+        @keyup.enter="search"
+      >
+      </GmapAutocomplete>
     </div>
 
     <!-- <v-col id="budget-box" cols="12" sm="1" md="1">
@@ -32,9 +32,8 @@
 
 <script>
 // @ is an alias to /src
-
 import Storage from "../classes/Storage.js";
-import Location from "../classes/Location.js"
+import Location from "../classes/Location.js";
 
 export default {
   name: "HomeView",
@@ -59,6 +58,11 @@ export default {
     saveLocation() {
       Storage.set('Latitude', Location.latitude(this.place));
       Storage.set('Longitude', Location.longitude(this.place));
+    },
+    search(place) {
+      this.setPlace(place);
+      setTimeout(() => {console.log("Pushing router with place: " + place)}, 50);
+      this.$router.push({name: 'search'});
     }
   },
   watch: {
@@ -74,7 +78,9 @@ export default {
 
 <style scoped>
   .home {
-    background: red;
+    background-image: linear-gradient(to right top, #000000, #141313, #201f20, #2c2c2d, #39393a, #484849, #575758, #666768, #7c7d7e, #939394, #aaaaab, #c2c2c2);
+    height: 100vh;
+    width: 100vw;
   }
 
   #login {
@@ -84,18 +90,17 @@ export default {
 
   #place-box {
     background: white;
-    margin-top: 17%;
+    margin-top: 20%;
     padding: 12px 20px;
     box-sizing: border-box;
-    width: 70%;
+    width: 50%;
     font-size: 36pt;
     border: 1px solid black;
     border-radius: 14px;
   }
 
   #loc-box {
-    margin-left: 10%;
-    /* border: 2px solid black; */
+    margin-left: 8%;
   }
 
   #budget-box {
