@@ -47,7 +47,7 @@ export default {
         this.currentPlace = null;
       }
     },
-    geolocate: function() {
+    geolocate() {
       this.center = {
           lat: Number(Storage.get('Latitude')),
           lng: Number(Storage.get('Longitude'))
@@ -56,10 +56,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-    /* #map {
-        position: relative;
-        z-index: 0;
-    } */
-</style>

@@ -35,13 +35,13 @@
         <br><br>
 
         <!-- Send to register page -->
-        <p>Not a member yet? <button id="register" @click="$router.push('/register')">Register here!</button></p>
+        <p>Not a member yet? <button id="register" @click="$router.push({name: 'register'})">Register here!</button></p>
         <br><br>
 
         <!-- Go back to home page -->
         <v-btn
             elevation="2"
-            @click="$router.push('/')"
+            @click="$router.push({name: 'home'})"
         >
             Back
         </v-btn>

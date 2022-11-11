@@ -1,25 +1,32 @@
 <template>
   <div class="home">
     <!-- Login Button -->
-    <v-btn elevation="2" @click="$router.push('/login')"> LOGIN </v-btn>
+    <v-btn
+      id="login"
+      elevation="2"
+      @click="$router.push({name: 'login'})"
+    > LOGIN
+    </v-btn>
     <br /><br /><br />
 
     <!-- Search criteria -->
     <div id="loc-box">
-      <GmapAutocomplete @place_changed="setPlace"></GmapAutocomplete>
+      <GmapAutocomplete
+        id="place-box"
+        @place_changed="setPlace"
+        placeholder="Shall we play a game?"
+        icon="../assets/logo.png"
+        @keyup.enter="$router.push({name: 'search'})"
+      ></GmapAutocomplete>
     </div>
 
-    <v-col id="budget-box" cols="12" sm="1" md="1">
-      <v-text-field label="Budget" v-model="budget" @keyup.enter="search()">
-      </v-text-field>
-    </v-col>
-
-    <!-- If Invalid Search -->
-    <p v-if="validSearch === false" id="invalid-search-error">Invalid Search</p>
-    <br />
-
-    <!-- Search button -->
-    <v-btn elevation="2" @click="$router.push('/search')"> Search </v-btn>
+    <!-- <v-col id="budget-box" cols="12" sm="1" md="1">
+      <v-text-field
+        label="Budget"
+        v-model="budget"
+        @keyup.enter="$router.push('/search')"
+      ></v-text-field>
+    </v-col> -->
   </div>
 </template>
 
@@ -34,6 +41,7 @@ export default {
   components: {},
   data: () => {
     return {
+      // The loaction object returned the the Google Maps API
       place: "",
       budget: "",
     };
@@ -42,6 +50,7 @@ export default {
     document.title = "TravelApp";
     Storage.set('Latitude', 0);
     Storage.set('Longitude', 0);
+    Storage.set('Budget', 0);
   },
   methods: {
     setPlace(place) {
@@ -55,21 +64,41 @@ export default {
   watch: {
     place() {
       this.saveLocation();
+    },
+    budget() {
+      Storage.set('Budget', this.budget);
     }
   }
   };
 </script>
 
 <style scoped>
+  .home {
+    background: red;
+  }
+
+  #login {
+    margin-left: 93%;
+    margin-top: 1%;
+  }
+
+  #place-box {
+    background: white;
+    margin-top: 17%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    width: 70%;
+    font-size: 36pt;
+    border: 1px solid black;
+    border-radius: 14px;
+  }
+
   #loc-box {
-    margin-left: 4.7%;
+    margin-left: 10%;
+    /* border: 2px solid black; */
   }
 
   #budget-box {
     margin-left: 45.5%;
-  }
-
-  #invalid-search-error {
-    color: rgb(230, 35, 35);
   }
 </style>

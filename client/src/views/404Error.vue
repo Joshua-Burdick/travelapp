@@ -10,12 +10,12 @@
 import Storage from '../classes/Storage.js';
 
 export default {
-    async mounted() {
+    mounted() {
         document.title = "404";
         Storage.set('timesRefreshed', String(Number(Storage.get('timesRefreshed')) + 1));
         window.addEventListener('unload', this.goHome());
     },
-    async beforeDestroy() {
+    beforeDestroy() {
         window.removeEventListener('unload', this.goHome());
     },
     methods: {
