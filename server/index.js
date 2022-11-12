@@ -8,6 +8,7 @@ const server = require('http').Server(app);
 exports.server = server;
 
 app.use(bodyParser.json);
+// app.use(cors());
 
 const PORT = process.env.PORT || 1776;
 
@@ -17,5 +18,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 server.listen(PORT, () => {
-    console.log(`Listening on localhost:${PORT}`);
+    console.log(`Listening on port:${PORT}`);
 })
