@@ -6,7 +6,7 @@ const app = express();
 
 app.use(bodyParser.json);
 
-const PORT = process.env.PORT || 1010;
+const PORT = process.env.PORT || 1776;
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(__dirname + '/public/'));

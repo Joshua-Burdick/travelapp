@@ -47,13 +47,13 @@
         </v-col>
 
         <!-- Return to login -->
-        Already a member? <button id="to-login" @click="$router.push('/login')">Login Here</button>
+        Already a member? <button id="to-login" @click="$router.push({name: '/login'})">Login Here</button>
         <br><br>
 
         <!-- Return to Home -->
         <v-btn
             elevation="2"
-            @click="$router.push('/')"
+            @click="$router.push({name: 'home'})"
         >
             Home
         </v-btn>

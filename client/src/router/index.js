@@ -2,12 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
 import SearchPage from '../views/SearchPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import ErrorPage from '../views/404Error.vue'
-
 
 Vue.use(VueRouter)
 
@@ -18,17 +16,7 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/about',
-    name: 'about',
-    component: AboutView
-  },
-  {
     path: '/search',
-    name: 'search',
-    component: SearchPage
-  },
-  {
-    path: '/search/:country?%:state?%:city?%budget=:budget?',
     name: 'search',
     component: SearchPage
   },
