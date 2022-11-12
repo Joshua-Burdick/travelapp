@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
+// const cors = require('cors');
 
 const app = express();
 
@@ -8,7 +8,7 @@ const server = require('http').Server(app);
 exports.server = server;
 
 app.use(bodyParser.json);
-app.use(cors());
+// app.use(cors());
 
 const PORT = process.env.PORT || 1776;
 
