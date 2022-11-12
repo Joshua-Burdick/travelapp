@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const server = require('http').Server(app);
-exports.server = server;
+// const server = require('http').Server(app);
+// exports.server = server;
 
 app.use(bodyParser.json);
 
@@ -16,6 +16,6 @@ if (process.env.NODE_ENV === 'production') {
     app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
 }
 
-server.listen(PORT, () => {
-    console.log(`Listening on localhost:${PORT}`);
+app.listen(PORT, () => {
+    console.log(`Listening on port:${PORT}`);
 })
