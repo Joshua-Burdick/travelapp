@@ -16,6 +16,6 @@ if (process.env.NODE_ENV === 'production') {
     app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
 }
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Listening on localhost:${PORT}`);
 })
