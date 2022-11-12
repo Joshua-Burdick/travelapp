@@ -71,7 +71,7 @@ export default {
       let lat = this.place.geometry.location.lat;
       let lng = this.place.geometry.location.lng;
       return [lat(), lng()];
-    },
+    }
   },
   watch: {
     place() {
@@ -119,15 +119,15 @@ export default {
 
 .login {
   position: absolute;
-  margin-left: 90%;
+  margin-left: 1%;
   z-index: 2;
 }
 
 .place-box {
   position: fixed;
   top: 43%;
-  left: 33%;
-  width: 35%;
+  left: 27%;
+  width: 47%;
   background-color: white;
   z-index: 2;
   border-radius: 8px;
