@@ -1,126 +1,129 @@
 <template>
   <div class="home">
+    <div class="planet">
+    </div>
     <!-- Login Button -->
-    <v-btn
-      elevation="2"
-      @click="$router.push('/login')"
-    >
-      LOGIN
-    </v-btn>
-    <br><br><br>
+    <div class="login">
+      <br>
+      <v-btn
+        elevation="2"
+        @click="$router.push({name: 'login'})"
+      > LOGIN
+      </v-btn>
+    </div>
 
     <!-- Search criteria -->
-    <v-col
-      id="country-box"
-      cols="12"
-      sm="6"
-      md="3"
-    >
-      <v-text-field
-          label="Country"
-          v-model="country"
-          @keyup.enter="search()"
+    <div class="place-box">
+      <GmapAutocomplete
+        @place_changed="setPlace"
+        placeholder="Shall we play a game?"
       >
-      </v-text-field>
-    </v-col>
-
-    <v-col
-      id="state-box"
-      cols="12"
-      sm="6"
-      md="3"
-    >
-      <v-text-field
-          label="State"
-          v-model="state"
-          @keyup.enter="search()"
+      </GmapAutocomplete>
+      <v-btn
+        id="search-btn"
+        elevation="0"
+        @click="$router.push({name: 'search'})"
       >
-      </v-text-field>
-    </v-col>
-
-    <v-col
-      id="city-box"
-      cols="12"
-      sm="6"
-      md="3"
-    >
-      <v-text-field
-          label="City"
-          v-model="city"
-          @keyup.enter="search()"
-      >
-      </v-text-field>
-    </v-col>
-
-    <v-col
-      id="budget-box"
-      cols="12"
-      sm="6"
-      md="3"
-    >
-      <v-text-field
-          label="Budget"
-          v-model="budget"
-          @keyup.enter="search()"
-      >
-      </v-text-field>
-    </v-col>
-
-    <!-- If Invalid Search -->
-    <p v-if="validSearch === false" id="invalid-search-error">Invalid Search</p>
-    <br>
-
-    <!-- Search button -->
-    <v-btn
-        elevation="2"
-        @click="search()"
-    >
-      Search
-    </v-btn>
+        <v-icon>
+          mdi-magnify
+        </v-icon>
+      </v-btn>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
-import SearchHandler from '../classes/SearchHandler.js';
+import Storage from "../classes/Storage.js";
+import Location from "../classes/Location.js";
 
 export default {
-  name: 'HomeView',
-  components: {
-
-  },
-  data: ()=> {
+  name: "HomeView",
+  components: {},
+  data: () => {
     return {
-      country: "",
-      state: "",
-      city: "",
+      // The loaction object returned the the Google Maps API
+      place: "",
       budget: "",
-      validSearch: true
-    }
+    };
   },
   async mounted() {
     document.title = "TravelApp";
+    Storage.set('Latitude', 0);
+    Storage.set('Longitude', 0);
+    Storage.set('Budget', 0);
   },
   methods: {
-    search() {
-      this.validSearch = true;
-      
-      let search = new SearchHandler();
-      let searchable = search.validateSearch(this.country, this.state, this.city);
-      if (searchable) this.$router.push(`/search/${this.country}%${this.state}%${this.city}%budget=${this.budget}`);
-      else this.validSearch = false;
+    setPlace(place) {
+      this.place = place;
+    },
+    saveLocation() {
+      Storage.set('Latitude', Location.latitude(this.place));
+      Storage.set('Longitude', Location.longitude(this.place));
+    }
+  },
+  watch: {
+    place() {
+      this.saveLocation();
+    },
+    budget() {
+      Storage.set('Budget', this.budget);
     }
   }
 }
 </script>
 
 <style scoped>
-  #country-box, #state-box, #city-box, #budget-box {
-    margin-left: 37%;
+  .home {
+    background-image: url('https://thumbs.gfycat.com/LatePositiveHerculesbeetle-size_restricted.gif');
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
   }
 
-  #invalid-search-error {
-    color: rgb(230, 35, 35);
+  .planet {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    width: 600px;
+    height: 600px;
+    background-image: url('https://www.h-schmidt.net/map/map.jpg');
+    border-radius: 50%;
+    background-size: cover;
+    box-shadow: -20px -20px 50px 2px #000 inset, 0 0 20px #000;
+    animation: spin 60s linear alternate infinite;
+    filter: blur(1.25px);
+  }
+
+  @keyframes spin {
+    100%{background-position: 100%;}
+  }
+
+  .login {
+    position: absolute;
+    margin-left: 94%;
+  }
+
+  .place-box {
+    background: white;
+    position: absolute;
+    z-index: 2;
+    margin-top: 23%;
+    margin-left: 32.25%;
+    padding: 4px 4px;
+    box-sizing: border-box;
+    width: 675px;
+    font-size: 36pt;
+    border: 1px solid black;
+    border-radius: 14px;
+  }
+
+  #search-btn {
+    background: white;
   }
 </style>

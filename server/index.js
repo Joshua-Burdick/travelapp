@@ -1,18 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-// const cors = require('cors');
+const cors = require('cors');
 
 const app = express();
 
-app.use(bodyParser.json);
+const server = require('http').Server(app);
+exports.server = server;
 
-const PORT = process.env.PORT || 1010;
+app.use(bodyParser.json);
+app.use(cors());
+
+const PORT = process.env.PORT || 1776;
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(__dirname + '/public/'));
     app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
 }
 
-app.listen(PORT, () => {
-    console.log(`Listening on localhost:${PORT}`);
+server.listen(PORT, () => {
+    console.log(`Listening on port:${PORT}`);
 })
