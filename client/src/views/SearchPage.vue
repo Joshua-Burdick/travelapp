@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <MapComponent/>
+    <div class="page">
+        <MapComponent id="map"/>
 
         <v-card
             id="some-text"
@@ -54,19 +54,28 @@ export default {
             return Storage.get('Budget');
         }
     }
-}
+};
 </script>
 
 <style scoped>
-    #map {
+
+    .page {
         position: relative;
+        width: 100vw;
+        height: 100vh;
         z-index: 0;
+    }
+
+    #map {
+        position: absolute;
+        z-index: 1;
     }
 
     #some-text {
         position: absolute;
-        z-index: 1;
+        z-index: 2;
         top: 0;
         margin-left: 60%;
     }
+
 </style>

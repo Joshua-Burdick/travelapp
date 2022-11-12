@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="map">
     <GmapMap
         :center='center'
         :zoom='12'
-        style='width: 100%;  height: 800px;'
+        style='width: 100vw;  height: 100vh;'
     >
         <GmapMarker
             :key="index"
@@ -22,7 +22,7 @@ import Storage from "../classes/Storage.js";
 export default {
   data() {
     return {
-      center: { lat: 0, lng: 0},
+      center: { lat: 0, lng: 0 },
       currentPlace: null,
       markers: [],
       places: [],

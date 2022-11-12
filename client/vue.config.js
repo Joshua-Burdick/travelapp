@@ -6,7 +6,7 @@ module.exports = defineConfig({
 })
 
 
-// Package application files and run dev server on port 1010
+// Package application files and run dev server on port 1776
 const path = require('path');
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://localhost:1010'
+        target: 'http://localhost:1776'
       }
     }
   }

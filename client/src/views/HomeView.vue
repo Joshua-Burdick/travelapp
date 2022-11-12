@@ -1,32 +1,34 @@
 <template>
   <div class="home">
+    <div class="planet">
+    </div>
     <!-- Login Button -->
-    <v-btn
-      id="login"
-      elevation="2"
-      @click="$router.push({name: 'login'})"
-    > LOGIN
-    </v-btn>
-
-    <!-- Search criteria -->
-    <div id="loc-box">
-      <GmapAutocomplete
-        id="place-box"
-        @place_changed="setPlace"
-        placeholder="Shall we play a game?"
-        icon="../assets/logo.png"
-        @keyup.enter="search"
-      >
-      </GmapAutocomplete>
+    <div class="login">
+      <br>
+      <v-btn
+        elevation="2"
+        @click="$router.push({name: 'login'})"
+      > LOGIN
+      </v-btn>
     </div>
 
-    <!-- <v-col id="budget-box" cols="12" sm="1" md="1">
-      <v-text-field
-        label="Budget"
-        v-model="budget"
-        @keyup.enter="$router.push('/search')"
-      ></v-text-field>
-    </v-col> -->
+    <!-- Search criteria -->
+    <div class="place-box">
+      <GmapAutocomplete
+        @place_changed="setPlace"
+        placeholder="Shall we play a game?"
+      >
+      </GmapAutocomplete>
+      <v-btn
+        id="search-btn"
+        elevation="0"
+        @click="$router.push({name: 'search'})"
+      >
+        <v-icon>
+          mdi-magnify
+        </v-icon>
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -58,11 +60,6 @@ export default {
     saveLocation() {
       Storage.set('Latitude', Location.latitude(this.place));
       Storage.set('Longitude', Location.longitude(this.place));
-    },
-    search(place) {
-      this.setPlace(place);
-      setTimeout(() => {console.log("Pushing router with place: " + place)}, 50);
-      this.$router.push({name: 'search'});
     }
   },
   watch: {
@@ -73,37 +70,60 @@ export default {
       Storage.set('Budget', this.budget);
     }
   }
-  };
+}
 </script>
 
 <style scoped>
   .home {
-    background-image: linear-gradient(to right top, #000000, #141313, #201f20, #2c2c2d, #39393a, #484849, #575758, #666768, #7c7d7e, #939394, #aaaaab, #c2c2c2);
+    background-image: url('https://thumbs.gfycat.com/LatePositiveHerculesbeetle-size_restricted.gif');
+    background-size: cover;
     height: 100vh;
     width: 100vw;
+    position: relative;
   }
 
-  #login {
-    margin-left: 93%;
-    margin-top: 1%;
+  .planet {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    width: 600px;
+    height: 600px;
+    background-image: url('https://www.h-schmidt.net/map/map.jpg');
+    border-radius: 50%;
+    background-size: cover;
+    box-shadow: -20px -20px 50px 2px #000 inset, 0 0 20px #000;
+    animation: spin 60s linear alternate infinite;
+    filter: blur(1.25px);
   }
 
-  #place-box {
+  @keyframes spin {
+    100%{background-position: 100%;}
+  }
+
+  .login {
+    position: absolute;
+    margin-left: 94%;
+  }
+
+  .place-box {
     background: white;
-    margin-top: 20%;
-    padding: 12px 20px;
+    position: absolute;
+    z-index: 2;
+    margin-top: 23%;
+    margin-left: 32.25%;
+    padding: 4px 4px;
     box-sizing: border-box;
-    width: 50%;
+    width: 675px;
     font-size: 36pt;
     border: 1px solid black;
     border-radius: 14px;
   }
 
-  #loc-box {
-    margin-left: 8%;
-  }
-
-  #budget-box {
-    margin-left: 45.5%;
+  #search-btn {
+    background: white;
   }
 </style>
