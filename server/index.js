@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-// const server = require('http').Server(app);
+const server = require('http').Server(app);
 // exports.server = server;
 
 app.use(bodyParser.json);
