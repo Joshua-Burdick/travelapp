@@ -20,7 +20,7 @@
 
 <script>
 
-import MapComponent from "../components/MapComponent"
+import MapComponent from "../components/MapComponent.vue"
 import Storage from "../classes/Storage.js"
 
 export default {
