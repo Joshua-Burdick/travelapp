@@ -15,7 +15,6 @@
     <!-- Search criteria -->
     <div class="place-box">
       <v-text-field
-        outlined
         placeholder="Enter a location"
         id="autocomplete"
         append-icon="mdi-magnify"
@@ -131,7 +130,7 @@ export default {
   background-color: white;
   z-index: 2;
   border-radius: 8px;
-  height: 5.5%;
+  height: 6.4%;
 }
 </style>
 
