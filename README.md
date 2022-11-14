@@ -1,5 +1,7 @@
 # travelapp
 
+An app to help find places to travel too.
+
 ## What you will need
 - [NodeJS](https://nodejs.org/en/) (ensure that you select `npm package manager` under 'Custom Setup')
 - [Vue.js](https://v2.vuejs.org/) (`npm install vue`)
