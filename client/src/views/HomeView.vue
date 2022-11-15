@@ -7,7 +7,11 @@
     >
       LOGIN
     </v-btn>
+    <button id="to-login" @click="$router.push('/LoginPage')"></button>
+        <br><br>
     <br><br><br>
+    <br><br>
+
 
     <!-- Search criteria -->
     <v-col
@@ -63,6 +67,15 @@
     >
       Search
     </v-btn>
+    <br><br>
+        <!-- Send to Weather page -->
+        <v-btn
+      elevation="2"
+      @click="$router.push('/Weather')"
+    >
+      Weather
+    </v-btn>
+    <br><br>
   </div>
 </template>
 

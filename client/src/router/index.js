@@ -7,7 +7,8 @@ import SearchPage from '../views/SearchPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import ErrorPage from '../views/404Error.vue'
-import MapPage from '../views/MapPage.vue'
+import Weather from '../views/Weather.vue'
+
 
 
 Vue.use(VueRouter)
@@ -43,10 +44,11 @@ const routes = [
     name: 'register',
     component: RegisterPage
   },
+
   {
-    path: '/map',
-    name: 'map',
-    component: MapPage
+    path: '/Weather',
+    name: 'Weather',
+    component: Weather
   },
   {
     path: '/*',
