@@ -3,15 +3,10 @@
     <!-- Login Button -->
     <v-btn
       elevation="2"
-      @click="$router.push('/login')"
+      @click="$router.push({name: 'login'})"
     >
       LOGIN
     </v-btn>
-    <button id="to-login" @click="$router.push('/LoginPage')"></button>
-        <br><br>
-    <br><br><br>
-    <br><br>
-
 
     <!-- Search criteria -->
     <v-col
@@ -71,7 +66,7 @@
         <!-- Send to Weather page -->
         <v-btn
       elevation="2"
-      @click="$router.push('/Weather')"
+      @click="$router.push({name: 'Weather'})"
     >
       Weather
     </v-btn>
