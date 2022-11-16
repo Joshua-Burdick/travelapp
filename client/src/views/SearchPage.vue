@@ -32,7 +32,7 @@ export default {
     components: {
         MapComponent
     },
-    mounted() {
+    created() {
         document.title = "TravelApp - Search";
     },
     methods: {

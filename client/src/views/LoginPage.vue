@@ -1,49 +1,52 @@
 <template>
     <div>
+        <div class="home-btn ma-5">
+            <!-- Go back to home page -->
+            <v-btn @click.stop="sendUserToHome">
+                <v-icon>mdi-home</v-icon>
+            </v-btn>
+        </div>
+
         <!-- Username Field -->
-        <v-col
-            id="username-box"
-            cols="12"
-            sm="6"
-            md="3"
-        >
-            <v-text-field
-                label="Username"
-                :rules="rules"
-                counter="20"
+        <div class= "center">
+            <v-col
+                id="username-box"
+                cols="12"
+                sm="6"
+                md="3"
             >
-            </v-text-field>
-        </v-col>
+                <v-text-field
+                    label="Username"
+                    :rules="rules"
+                    counter="20"
+                >
+                </v-text-field>
+            </v-col>
+        </div>
 
         <br><br>
 
         <!-- Password field -->
-        <v-col
-            id="password-box"
-            cols="12"
-            sm="6"
-            md="3"
-        >
-            <v-text-field
-                label="Password"
-                :rules="rules"
-                counter="20"
+        <div class="center">
+            <v-col
+                id="password-box"
+                cols="12"
+                sm="6"
+                md="3"
             >
-            </v-text-field>
-        </v-col>
-
-        <br><br>
+                <v-text-field
+                    label="Password"
+                    :rules="rules"
+                    counter="20"
+                >
+                </v-text-field>
+            </v-col>
+        </div>
 
         <!-- Send to register page -->
-        <p class="center">Not a member yet? <button id="register" @click.stop="sendUsertoRegister">Register here!</button></p>
+        <p class="question center">Not a member yet? <button id="register" @click.stop="sendUsertoRegister">Register here!</button></p>
 
-        <div class="center">
-            <br><br>
-            <!-- Go back to home page -->
-            <v-btn @click.stop="sendUserToHome">
-                Back
-            </v-btn>
-        </div>
+        
     </div>
 </template>
 
@@ -53,6 +56,9 @@ export default {
         return {
             rules: [val => val.length <= 20 || "Max 20 characters"]
         }
+    },
+    created() {
+        document.title = "TravelApp - Log In";
     },
     methods: {
         sendUsertoRegister() {
@@ -70,8 +76,9 @@ export default {
 </script>
 
 <style scoped>
-    #username-box, #password-box {
-        margin-left: 37%;
+
+    .question {
+        margin-top: 25%;
     }
 
     #register {
