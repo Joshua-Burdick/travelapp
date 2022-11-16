@@ -12,7 +12,7 @@
                 <br>
                 <div>Longitude: {{ lng() }}</div>
                 <br>
-                <div>Budget: $ {{ budget() }}</div>
+                <div>Budget: ${{ budget() }}</div>
             </v-card-text>
         </v-card>
     </div>
@@ -34,16 +34,8 @@ export default {
     },
     mounted() {
         document.title = "TravelApp - Search";
-        this.convertBudget();
     },
     methods: {
-        convertBudget() {
-            let rbudget = this.$route.params.budget;
-            if (rbudget.length != 0) {
-                let nbudget = Number(rbudget);
-                if (!isNaN(nbudget)) this.budget = nbudget;
-            }
-        },
         lat() {
             return Storage.get('Latitude');
         },
