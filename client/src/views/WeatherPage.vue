@@ -7,7 +7,7 @@
             class="search-bar" 
             placeholder="Search..."
             v-model="query"
-            @keyup.enter="fetchWeather()"
+            @keyup.enter="fetchWeather"
         />   
 
     </div>
@@ -44,7 +44,8 @@ export default {
             fetch(`${this.url_base}weather?q=${this.query}&units=imperial&APPID=${this.api_key}`)
             .then(res => {
                 return res.json();
-            }).then(this.setResults);
+            })
+            .then(this.setResults);
         },
         setResults(results){
             this.weather = results;
@@ -63,84 +64,87 @@ export default {
 </script>
 
 <style>
-*{
- margin: 0;
- padding: 0;
- box-sizing: border-box;  
-}
-body 
-{
-    font-family: 'montserrat', sans-serif;
-}
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;  
+    }
 
+    body 
+    {
+        font-family: 'montserrat', sans-serif;
+    }
 
-.search-box{
-    width: 100%;
-    margin-bottom: 30px;
-}
-.search-box .search-bar{
-    display: block;
-    width: 100%;
-    padding: 15px;
-    color: #313131;
-    font-size: 20px;
+    .search-box{
+        width: 100%;
+        margin-bottom: 30px;
+    }
 
-    appearance: none;
-    border: none;
-    outline: none;
-    background: none;
+    .search-box .search-bar{
+        display: block;
+        width: 100%;
+        padding: 15px;
+        color: #313131;
+        font-size: 20px;
 
-    background-color: rgba(168, 168, 168, 0.783);
-    border-radius: 0px 16px 0px 16px;
-    transition: 0.4s;
+        appearance: none;
+        border: none;
+        outline: none;
+        background: none;
 
-}
-.search-box .search-bar:focus {
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
-    background-color: rgba(206, 206, 206, 0.648);
-    border-radius: 16px 0 16px 0px;
-}
+        background-color: rgba(168, 168, 168, 0.783);
+        border-radius: 0px 16px 0px 16px;
+        transition: 0.4s;
 
-.location-box .location{
+    }
+
+    .search-box .search-bar:focus {
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+        background-color: rgba(206, 206, 206, 0.648);
+        border-radius: 16px 0 16px 0px;
+    }
+
+    .location-box .location{
+        color: black;
+        font-size: 32px;
+        font-weight: 500;
+        text-align: center;
+        text-shadow: 1px 3px rgba(0, 0, 0, .25);
+
+    }
+
+    .location-box .date {
+        color: black;
+        font-size: 20px;
+        font-weight: 300;
+        font-style: italic;
+        text-align: center;
+    }
+
+    .weather-box{
+        text-align: center;
+    }
+
+    .weather-box .temp{
+    display: inline-block;
+    padding: 10px 25px;
     color: black;
-    font-size: 32px;
-    font-weight: 500;
-    text-align: center;
-    text-shadow: 1px 3px rgba(0, 0, 0, .25);
+    font-size: 102px;
+    font-weight: 900;
+    
+    text-shadow: 2px 6px rgba(0, 0, 0, .25);
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    margin: 30px 0px;
 
-}
+    box-shadow: 3px 6px rgba(0, 0, 0, .25);
+    }
 
-.location-box .date {
-    color: black;
-    font-size: 20px;
-    font-weight: 300;
-    font-style: italic;
-    text-align: center;
-}
-.weather-box{
-    text-align: center;
-}
-.weather-box .temp{
-  display: inline-block;
-  padding: 10px 25px;
-  color: black;
-  font-size: 102px;
-  font-weight: 900;
-  
-  text-shadow: 2px 6px rgba(0, 0, 0, .25);
-  background-color: rgba(255, 255, 255, 0.25);
-  border-radius: 16px;
-  margin: 30px 0px;
-
-  box-shadow: 3px 6px rgba(0, 0, 0, .25);
-}
-
-.weather-box .weather {
-    color: black;
-    font-size: 48px;
-    font-weight: 700;
-    font-style: italic;
-    text-shadow: 3px 3px rgba(0, 0, 0, .25);
-}
-
+    .weather-box .weather {
+        color: black;
+        font-size: 48px;
+        font-weight: 700;
+        font-style: italic;
+        text-shadow: 3px 3px rgba(0, 0, 0, .25);
+    }
 </style>

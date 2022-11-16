@@ -35,16 +35,15 @@
         <br><br>
 
         <!-- Send to register page -->
-        <p>Not a member yet? <button id="register" @click="$router.push({name: 'register'})">Register here!</button></p>
-        <br><br>
+        <p class="center">Not a member yet? <button id="register" @click.stop="sendUsertoRegister">Register here!</button></p>
 
-        <!-- Go back to home page -->
-        <v-btn
-            elevation="2"
-            @click="$router.push({name: 'home'})"
-        >
-            Back
-        </v-btn>
+        <div class="center">
+            <br><br>
+            <!-- Go back to home page -->
+            <v-btn @click.stop="sendUserToHome">
+                Back
+            </v-btn>
+        </div>
     </div>
 </template>
 
@@ -53,6 +52,18 @@ export default {
     data: () => {
         return {
             rules: [val => val.length <= 20 || "Max 20 characters"]
+        }
+    },
+    methods: {
+        sendUsertoRegister() {
+            this.$router.push({
+                name: 'register'
+            });
+        },
+        sendUserToHome() {
+            this.$router.push({
+                name: 'home'
+            });
         }
     }
 }
