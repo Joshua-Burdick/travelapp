@@ -73,6 +73,9 @@ export default{
             ]
         }
     },
+    created() {
+        document.title = "TravelApp - Register";
+    },
     methods: {
         sendUserToLogin() {
             this.$router.push({

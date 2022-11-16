@@ -54,6 +54,9 @@ export default {
             rules: [val => val.length <= 20 || "Max 20 characters"]
         }
     },
+    created() {
+        document.title = "TravelApp - Log In";
+    },
     methods: {
         sendUsertoRegister() {
             this.$router.push({
