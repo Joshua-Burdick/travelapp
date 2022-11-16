@@ -22,7 +22,9 @@ export default {
         goHome() {
             let refreshed = Number(Storage.get('timesRefreshed'));
             if (refreshed >= 2) {
-                this.$router.push('/');
+                this.$router.push({
+                    name: 'home'
+                });
                 Storage.set('timesRefreshed', '0');
             }
         }

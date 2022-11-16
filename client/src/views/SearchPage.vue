@@ -8,11 +8,11 @@
         >
             <v-card-title>Test</v-card-title>
             <v-card-text>
-                <div>Latitude: {{ lat() }}</div>
+                <div>Latitude: {{ lat }}</div>
                 <br>
-                <div>Longitude: {{ lng() }}</div>
+                <div>Longitude: {{ lng }}</div>
                 <br>
-                <div>Budget: ${{ budget() }}</div>
+                <div>Budget: ${{ budget }}</div>
             </v-card-text>
         </v-card>
     </div>
@@ -36,14 +36,32 @@ export default {
         document.title = "TravelApp - Search";
     },
     methods: {
-        lat() {
-            return Storage.get('Latitude');
+
+    },
+    computed: {
+        lat: {
+            get() {
+                return Storage.get('Latitude');
+            },
+            set(newLat) {
+                Storage.set('Latitude', newLat);
+            }
         },
-        lng() {
-            return Storage.get('Longitude');
+        lng: {
+            get() {
+                return Storage.get('Longitude');
+            },
+            set(newLng) {
+                Storage.set('Longitude', newLng);
+            }
         },
-        budget() {
-            return Storage.get('Budget');
+        budget: {
+            get() {
+                return Storage.get('Budget');
+            },
+            set(newBudget) {
+                Storage.set('Budget', newBudget);
+            }
         }
     }
 };

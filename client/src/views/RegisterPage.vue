@@ -47,16 +47,17 @@
         </v-col>
 
         <!-- Return to login -->
-        Already a member? <button id="to-login" @click="$router.push({name: '/login'})">Login Here</button>
-        <br><br>
+        <p class="center">Already a member? <button id="to-login" @click.stop="sendUserToLogin">Login Here</button></p>
 
-        <!-- Return to Home -->
-        <v-btn
-            elevation="2"
-            @click="$router.push({name: 'home'})"
-        >
-            Home
-        </v-btn>
+        <div class="center">
+            <!-- Return to Home -->
+            <v-btn
+                elevation="2"
+                @click.stop="sendUserToHome"
+            >
+                Home
+            </v-btn>
+        </div>
     </div>
     
 </template>
@@ -70,6 +71,18 @@ export default{
                 val => val.length <= 20 || "Max 20 characters",
                 val => !!val || "Required"
             ]
+        }
+    },
+    methods: {
+        sendUserToLogin() {
+            this.$router.push({
+                name: 'login'
+            });
+        },
+        sendUserToHome() {
+            this.$router.push({
+                name: 'home'
+            });
         }
     }
 }

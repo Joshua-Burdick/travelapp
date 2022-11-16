@@ -54,6 +54,7 @@ export default {
       const PLACE = this.autocomplete.getPlace();
       const LAT = PLACE.geometry.location.lat();
       const LNG = PLACE.geometry.location.lng();
+
       Storage.set("Latitude", LAT);
       Storage.set("Longitude", LNG);
       this.$router.push({ 
@@ -126,6 +127,10 @@ export default {
   position: fixed;
   top: 0;
   right: 0;
+}
+
+.search {
+  padding: 2px 2px;
 }
 </style>
 
