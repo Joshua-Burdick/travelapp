@@ -57,8 +57,10 @@ export default {
       const PLACE = this.autocomplete.getPlace();
       const LAT = PLACE.geometry.location.lat();
       const LNG = PLACE.geometry.location.lng();
+
       Storage.set("Latitude", LAT);
       Storage.set("Longitude", LNG);
+
       this.$router.push({ name: "search" });
     });
   },
@@ -129,15 +131,8 @@ export default {
   right: 0;
 }
 
-.place-box {
-  position: fixed;
-  top: 43%;
-  left: 27%;
-  width: 47%;
-  background-color: white;
-  z-index: 2;
-  border-radius: 8px;
-  height: 6.4%;
+.search {
+  padding: 2px 2px;
 }
 </style>
 
