@@ -45,10 +45,7 @@ export default {
   created() {
     document.title = "TravelApp";
   },
-  async mounted() {
-    // sets 1s delay to allow google maps to load in
-    await new Promise((resolve) => setTimeout(() => resolve(), 250));
-
+  mounted() {
     this.autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete")
     );
@@ -60,17 +57,18 @@ export default {
 
       Storage.set("Latitude", LAT);
       Storage.set("Longitude", LNG);
-
-      this.$router.push({ name: "search" });
+      this.$router.push({ 
+        name: "search" 
+      });
     });
   },
   computed: {
     budget: {
       get() {
-        return Storage.get("Budget")
+        return Storage.get("Budget");
       },
       set(newBudget) {  
-        Storage.set("Budget", newBudget)
+        Storage.set("Budget", newBudget);
       }
     }
   },
@@ -78,7 +76,7 @@ export default {
     sendUserToLogin() {
       this.$router.push({
         name: 'login'
-      })
+      });
     }
   }
 };
