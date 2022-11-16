@@ -1,26 +1,31 @@
 <template>
-  <div class="home">
+  <div class="home center">
+
     <div
+      v-if="$vuetify.breakpoint.mdAndUp" 
       class="planet"
-      v-if="$vuetify.breakpoint.name != 'xs' && $vuetify.breakpoint.name != 'sm'" 
     ></div>
+
     <!-- Login Button -->
-    <div class="login">
-      <br />
-      <v-btn elevation="2" @click="$router.push({ name: 'login' })">
-        <v-icon>mdi-account</v-icon>LOG IN
+    <div class="login ma-5">
+      <v-btn @click.stop="sendUserToLogin">
+        <v-icon>mdi-account</v-icon>
+        LOG IN
       </v-btn>
     </div>
 
     <!-- Search criteria -->
-    <div class="place-box">
+    <div class="search">
       <v-text-field
-        placeholder="Enter a location"
+        filled
+        solo
+        dark
+        label="Enter a location"
         id="autocomplete"
-        append-icon="mdi-magnify"
-        @click:append-icon="getCoords"
+        prepend-inner-icon="mdi-map-marker"
       ></v-text-field>
     </div>
+
   </div>
 </template>
  
@@ -28,62 +33,65 @@
 /* eslint-disable */
 // @ is an alias to /src
 import Storage from "../classes/Storage.js";
-import Location from "../classes/Location.js";
 
 export default {
   name: "HomeView",
-  components: {},
-  data: () => {
+  data() {
     return {
-      // The loaction object returned the the Google Maps API
-      place: "",
-      budget: "",
       // attaches to the google maps autocomplete api
-      autocomplete: null,
+      autocomplete: undefined,
     };
+  },
+  created() {
+    document.title = "TravelApp";
   },
   async mounted() {
     // sets 1s delay to allow google maps to load in
-    await new Promise((resolve) => setTimeout(() => resolve(), 1000));
+    await new Promise((resolve) => setTimeout(() => resolve(), 250));
+
     this.autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete")
     );
 
     google.maps.event.addListener(this.autocomplete, "place_changed", () => {
-      this.place = this.autocomplete.getPlace();
-      let [lat, lng] = this.getCoords();
-      Storage.set("Latitude", lat);
-      Storage.set("Longitude", lng);
+      const PLACE = this.autocomplete.getPlace();
+      const LAT = PLACE.geometry.location.lat();
+      const LNG = PLACE.geometry.location.lng();
+      Storage.set("Latitude", LAT);
+      Storage.set("Longitude", LNG);
       this.$router.push({ name: "search" });
     });
-
-    document.title = "TravelApp";
-
-    Storage.set("Budget", 0);
   },
-  methods: {
-    saveLocation() {
-      Storage.set("Latitude", Location.latitude(this.place));
-      Storage.set("Longitude", Location.longitude(this.place));
-    },
-    getCoords() {
-      let lat = this.place.geometry.location.lat;
-      let lng = this.place.geometry.location.lng;
-      return [lat(), lng()];
+  computed: {
+    budget: {
+      get() {
+        return Storage.get("Budget")
+      },
+      set(newBudget) {  
+        Storage.set("Budget", newBudget)
+      }
     }
   },
-  watch: {
-    place() {
-      this.saveLocation();
-    },
-    budget() {
-      Storage.set("Budget", this.budget);
-    },
-  },
+  methods: {
+    sendUserToLogin() {
+      this.$router.push({
+        name: 'login'
+      })
+    }
+  }
 };
 </script>
  
 <style scoped>
+.search {
+  width: 75%;
+  max-width: 500px;
+  z-index: 2;
+  height: 60px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
 .home {
   background-image: url("https://thumbs.gfycat.com/LatePositiveHerculesbeetle-size_restricted.gif");
   background-size: cover;
@@ -94,7 +102,6 @@ export default {
 
 .planet {
   position: absolute;
-  z-index: 1;
   top: 0;
   bottom: 0;
   right: 0;
@@ -117,9 +124,9 @@ export default {
 }
 
 .login {
-  position: absolute;
-  margin-left: 1%;
-  z-index: 2;
+  position: fixed;
+  top: 0;
+  right: 0;
 }
 
 .place-box {
