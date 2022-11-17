@@ -15,12 +15,15 @@
                 <div>Budget: ${{ budget }}</div>
             </v-card-text>
         </v-card>
+
+        <WeatherCard id="weather"/>
     </div>
 </template>
 
 <script>
 
 import MapComponent from "../components/MapComponent.vue"
+import WeatherCard from "../components/WeatherCard.vue"
 import Storage from "../classes/Storage.js"
 
 export default {
@@ -30,7 +33,8 @@ export default {
         }
     },
     components: {
-        MapComponent
+        MapComponent,
+        WeatherCard
     },
     created() {
         document.title = "TravelApp - Search";
@@ -86,6 +90,12 @@ export default {
         z-index: 2;
         top: 0;
         margin-left: 60%;
+    }
+
+    #weather {
+        position: absolute;
+        z-index: 2;
+        margin-left: 30%;
     }
 
 </style>

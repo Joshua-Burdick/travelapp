@@ -1,7 +1,7 @@
 <template>
     <div>
-        <p id="err-num">404</p>
-        <p>Whoops! Looks like an error has occurred.</p>
+        <p class="center" id="err-num">404</p>
+        <p class="center">Whoops! Looks like an error has occurred.</p>
     </div>
 </template>
 
@@ -36,6 +36,5 @@ export default {
     #err-num {
         font-size: 48pt;
         color: red;
-        margin-top: 20%;
     }
 </style>
