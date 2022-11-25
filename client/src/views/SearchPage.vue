@@ -2,20 +2,6 @@
     <div class="page">
         <MapComponent id="map"/>
 
-        <v-card
-            id="some-text"
-            elevation="2"
-        >
-            <v-card-title>Test</v-card-title>
-            <v-card-text>
-                <div>Latitude: {{ lat }}</div>
-                <br>
-                <div>Longitude: {{ lng }}</div>
-                <br>
-                <div>Budget: ${{ budget }}</div>
-            </v-card-text>
-        </v-card>
-
         <WeatherCard id="weather"/>
     </div>
 </template>
@@ -85,17 +71,11 @@ export default {
         z-index: 1;
     }
 
-    #some-text {
-        position: absolute;
-        z-index: 2;
-        top: 0;
-        margin-left: 60%;
-    }
-
     #weather {
         position: absolute;
         z-index: 2;
-        margin-left: 30%;
+        top: 20px;
+        right: 48%;
     }
 
 </style>

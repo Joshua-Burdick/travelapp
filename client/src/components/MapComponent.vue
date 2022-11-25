@@ -1,22 +1,17 @@
 <template>
   <div class="map">
-    <GmapMap
-        :center='center'
-        :zoom='12'
-        style='width: 100vw;  height: 100vh;'
-    >
-        <GmapMarker
-            :key="index"
-            v-for="(mark, index) in markers"
-            :position="mark.position"
-            @click="center=m.position"
-        />
+    <GmapMap :center="center" :zoom="12" style="width: 100vw; height: 100vh">
+      <GmapMarker
+        :key="index"
+        v-for="(mark, index) in markers"
+        :position="mark.position"
+        @click="center = m.position"
+      />
     </GmapMap>
   </div>
 </template>
 
 <script>
-
 import Storage from "../classes/Storage.js";
 
 export default {
@@ -26,10 +21,13 @@ export default {
       currentPlace: null,
       markers: [],
       places: [],
-    }
+    };
   },
   mounted() {
-    this.geolocate();
+    this.center = {
+      lat: Number(Storage.get('Latitude')),
+      lng: Number(Storage.get('Longitude'))
+    }
   },
   methods: {
     setPlace(place) {
@@ -48,10 +46,12 @@ export default {
       }
     },
     geolocate() {
-      this.center = {
-          lat: Number(Storage.get('Latitude')),
-          lng: Number(Storage.get('Longitude'))
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
         };
+      });
     },
   },
 };

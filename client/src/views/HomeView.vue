@@ -57,6 +57,9 @@ export default {
 
       Storage.set("Latitude", LAT);
       Storage.set("Longitude", LNG);
+
+      console.log(PLACE);
+
       this.$router.push({ 
         name: "search" 
       });
