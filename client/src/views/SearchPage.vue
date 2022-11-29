@@ -3,6 +3,11 @@
         <MapComponent id="map"/>
 
         <WeatherCard id="weather"/>
+
+        <v-card id="info-card">
+            <v-card-title class="center">TEST</v-card-title>
+            <v-card-text><a id="site-link" target="_blank">Location Website</a></v-card-text>
+        </v-card>
     </div>
 </template>
 
@@ -24,6 +29,10 @@ export default {
     },
     created() {
         document.title = "TravelApp - Search";
+    },
+    mounted() {
+        // Create the external link to the city website
+        document.getElementById("site-link").href = this.website;
     },
     methods: {
 
@@ -52,6 +61,14 @@ export default {
             set(newBudget) {
                 Storage.set('Budget', newBudget);
             }
+        },
+        website: {
+            get() {
+                return Storage.get('Website');
+            },
+            set(newSite) {
+                Storage.set('Website', newSite);
+            }
         }
     }
 };
@@ -76,6 +93,11 @@ export default {
         z-index: 2;
         top: 20px;
         right: 48%;
+    }
+
+    #info-card {
+        position: absolute;
+        z-index: 2;
     }
 
 </style>

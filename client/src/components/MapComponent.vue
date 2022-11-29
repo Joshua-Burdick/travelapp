@@ -8,6 +8,7 @@
         @click="center = m.position"
       />
     </GmapMap>
+    <div id="map"></div>
   </div>
 </template>
 
@@ -20,7 +21,7 @@ export default {
       center: { lat: 0, lng: 0 },
       currentPlace: null,
       markers: [],
-      places: [],
+      places: []
     };
   },
   mounted() {
