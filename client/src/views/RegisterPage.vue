@@ -1,110 +1,88 @@
 <template>
-    <div>
-        <div class="home-btn ma-5">
-            <!-- Return to Home -->
-            <v-btn @click.stop="sendUserToHome">
-                <v-icon>mdi-home</v-icon>
-            </v-btn>
-        </div>
-
-        <div class="center">
-            <!-- Email -->
-            <v-col
-                id="register-email"
-                cols="12"
-                sm="6"
-                md="3"
-            >
-                <v-text-field
-                    label="Enter an email"
-                    :rules="emailRules"
-                    counter="50"
-                >
-                </v-text-field>
-            </v-col>
-        </div>
-
-        <div class="center">
-            <!-- Username -->
-            <v-col
-                id="register-user"
-                cols="12"
-                sm="6"
-                md="3"
-            >
-                <v-text-field
-                    label="Create a username"
-                    :rules="acctRules"
-                    counter="20"
-                >
-                </v-text-field>
-            </v-col>
-        </div>
-        
-        <div class="center">
-            <!-- Password -->
-            <v-col
-                id="register-pwd"
-                cols="12"
-                sm="6"
-                md="3"
-            >
-                <v-text-field
-                    label="Create a password"
-                    :rules="acctRules"
-                    rules.color="red"
-                    counter="20"
-                >
-                </v-text-field>
-            </v-col>
-        </div>
-
-        <!-- Return to login -->
-        <p class="question center">Already a member? <button id="to-login" @click.stop="sendUserToLogin">Log In</button></p>
-    </div>
-    
+  <div class="register-form-container">
+    <v-card width="500">
+      <v-card-title>
+        <h1 class="display-1">Register</h1>
+      </v-card-title>
+      <v-card-text>
+        <v-form ref="form" v-model="valid" lazy-validation>
+          <v-text-field
+            v-model="name"
+            :rules="nameRules"
+            label="Name"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            label="E-mail"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="password"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="passwordRules"
+            :type="showPassword ? 'text' : 'password'"
+            label="Password"
+            required
+            @click:append="showPassword = !showPassword"
+          ></v-text-field>
+          <!-- re-enter password -->
+          <v-text-field
+            v-model="password2"
+            :rules="password2Rules"
+            :type="showPassword ? 'text' : 'password'"
+            label="Re-enter Password"
+            required
+            @click:append="showPassword2 = !showPassword2"
+          ></v-text-field>
+        </v-form>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="primary" @click="register">Register</v-btn>
+      </v-card-actions>
+    </v-card>
+  </div>
 </template>
 
 <script>
-
-export default{
-    data: () => {
-        return {
-            acctRules: [
-                val => val.length <= 20 || "Max 20 characters",
-                val => !!val || "Required"
-            ],
-            emailRules: [
-                val => val.length <= 50 || "Max 50 characters",
-                val => !!val || "Required"
-            ]
-        }
-    },
-    created() {
-        document.title = "TravelApp - Register";
-    },
-    methods: {
-        sendUserToLogin() {
-            this.$router.push({
-                name: 'login'
-            });
-        },
-        sendUserToHome() {
-            this.$router.push({
-                name: 'home'
-            });
-        }
+export default {
+  data() {
+    return {
+      valid: true,
+      name: "",
+      nameRules: [
+        (v) => !!v || "Name is required",
+        (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+      ],
+      email: "",
+      emailRules: [
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      ],
+      password: "",
+      passwordRules: [
+        (v) => !!v || "Password is required",
+        (v) => (v && v.length >= 6) || "Password must be greater than 6 characters",
+      ],
+      showPassword: false,
+      password2: "",
+      password2Rules: [
+        (v) => (v === this.password) || "Passwords must match",
+      ],
     }
+  }
 }
 </script>
 
+
 <style scoped>
 
-    .question {
-        margin-top: 22%;
-    }
+  .register-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
 
-    #to-login {
-        color: blue;
-    }
 </style>
