@@ -1,6 +1,10 @@
 <template>
   <div class="register-form-container">
-    <v-card width="400">
+    <v-card 
+      width="400"
+      class="card-container pb-2 px-2"
+      dark
+    >
       <v-card-title>
         <h1 class="display-1">
           Register
@@ -152,12 +156,19 @@ export default {
 }
 </script>
 
-
 <style scoped>
-  .register-form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+.register-form-container {
+  background-image: url("https://thumbs.gfycat.com/LatePositiveHerculesbeetle-size_restricted.gif");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+.card-container {
+  border: 1px solid white; 
+  border-radius: 10px; 
+  background-color: rgba(255, 255, 255, 0.1);
+}
 </style>

@@ -8,9 +8,29 @@
 
     <!-- Login Button -->
     <div class="login ma-5">
-      <v-btn @click.stop="sendUserToLogin">
-        <v-icon>mdi-account</v-icon>
-        LOG IN
+      <v-btn 
+        v-if="!user"
+        @click.stop="login"
+        text
+        class="white--text text-h5 font-weight-bold"
+      >
+        <v-icon 
+          large
+          class="mr-2"
+        >mdi-account</v-icon>
+        Log In
+      </v-btn>
+      <v-btn 
+        v-else 
+        @click.stop="profile"
+        text
+        class="white--text text-h5 font-weight-bold"
+        >
+        <v-icon 
+          large
+          class="mr-2"
+        >mdi-account-check</v-icon>
+        {{ user }}
       </v-btn>
     </div>
 
@@ -40,6 +60,8 @@ export default {
     return {
       // attaches to the google maps autocomplete api
       autocomplete: undefined,
+      // gets logged in user
+      user: localStorage.getItem('username'),
     };
   },
   created() {
@@ -73,9 +95,14 @@ export default {
     }
   },
   methods: {
-    sendUserToLogin() {
+    login() {
       this.$router.push({
-        name: 'login'
+        name: "login"
+      });
+    },
+    profile() {
+      this.$router.push({
+        name: "profile"
       });
     }
   }

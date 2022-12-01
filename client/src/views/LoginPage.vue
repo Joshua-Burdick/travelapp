@@ -1,8 +1,12 @@
 <template>
   <div class="login-form-container">
-    <v-card width="400">
+    <v-card 
+      width="400"
+      class="card-container pb-2 px-2"
+      dark
+    >
       <v-card-title>
-        <h1 class="display-1">
+        <h1 class="display-1 white--text">
           Login
         </h1>
       </v-card-title>
@@ -13,8 +17,8 @@
         >
           <v-text-field
             v-model="username"
-            label="Name"
             :rules="nameRules"
+            label="Name"
           ></v-text-field>
           <v-text-field
             v-model="password"
@@ -39,7 +43,7 @@
         <v-spacer></v-spacer>
         <v-btn 
           @click="register"
-          text
+          tex
         >
           Register here
         </v-btn>
@@ -106,10 +110,18 @@ export default {
 
 <style scoped>
 .login-form-container {
+  background-image: url("https://thumbs.gfycat.com/LatePositiveHerculesbeetle-size_restricted.gif");
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
+}
+.card-container {
+  border: 1px solid white; 
+  border-radius: 10px; 
+  background-color: rgba(255, 255, 255, 0.1);
 }
 </style>
 
