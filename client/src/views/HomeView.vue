@@ -34,7 +34,8 @@ export default {
   data() {
     return {
       // attaches to the google maps autocomplete api
-      autocomplete: undefined
+      autocomplete: undefined,
+      nearby: undefined
     };
   },
   created() {
@@ -48,6 +49,8 @@ export default {
       document.getElementById("autocomplete")
     );
 
+    
+
     google.maps.event.addListener(this.autocomplete, "place_changed", () => {
       const PLACE = this.autocomplete.getPlace();
       const LAT = PLACE.geometry.location.lat();
@@ -57,6 +60,22 @@ export default {
       Storage.set("Longitude", LNG);
 
       Storage.set("Website", PLACE.website);
+
+      let map = new google.maps.Map(document.getElementById('autocomplete'));
+      let service = new google.maps.places.PlacesService(map);
+      let request = {
+        location: new google.maps.LatLng(Number(Storage.get('Latitude')), Number(Storage.get('Longitude'))),
+        radius: '500',
+        query: 'restaurant'
+      };
+      service.textSearch(request, (results, status) => {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          for (let i = 0; i < results.length; i++) {
+            let place = results[i];
+            console.log(place);
+          }
+        }
+      });
 
       this.$router.push({
         name: "search",

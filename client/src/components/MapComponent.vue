@@ -1,5 +1,5 @@
 <template>
-  <div class="map">
+  <div class="map-render">
     <GmapMap :center="center" :zoom="12" style="width: 100vw; height: 100vh">
       <GmapMarker
         :key="index"
