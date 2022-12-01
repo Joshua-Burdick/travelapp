@@ -29,6 +29,7 @@
           <v-text-field
             v-model="username"
             :rules="nameRules"
+            prepend-icon="mdi-account"
             filled
             label="Name"
           ></v-text-field>
@@ -38,6 +39,7 @@
             :type="showPassword ? 'text' : 'password'"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="passwordRules"
+            prepend-icon="mdi-lock"
             label="Password"
             filled
           ></v-text-field>

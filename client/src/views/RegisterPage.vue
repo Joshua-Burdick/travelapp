@@ -30,6 +30,7 @@
             v-model="name"
             :rules="nameRules"
             label="Name"
+            prepend-icon="mdi-account"
             filled
             required
           ></v-text-field>
@@ -37,6 +38,7 @@
             v-model="email"
             :rules="emailRules"
             label="E-mail"
+            prepend-icon="mdi-email"
             required
             filled
           ></v-text-field>
@@ -46,6 +48,7 @@
             :rules="passwordRules"
             :type="showPassword ? 'text' : 'password'"
             label="Password"
+            prepend-icon="mdi-lock"
             filled
             required
             @click:append="showPassword = !showPassword"
@@ -57,6 +60,7 @@
             :type="showPassword ? 'text' : 'password'"
             label="Re-enter Password"
             required
+            prepend-icon="mdi-redo-variant"
             filled
             @click:append="showPassword2 = !showPassword2"
           ></v-text-field>
