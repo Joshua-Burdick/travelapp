@@ -1,5 +1,14 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
+app.use(express.json());
+
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGO_CONNECTION_URI);
+
+const auth = require('./api/auth');
+app.use('/api/auth', auth);
 
 const PORT = process.env.PORT || 1776;
 

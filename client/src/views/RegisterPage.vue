@@ -93,7 +93,9 @@ export default {
         })
         .then(() => {
           // if successful, redirect to login page
-          this.$router.push('/login')
+          this.$router.push({
+            name: 'login'
+          })
         })
         .catch((error) => {
           // if error, show error message
@@ -107,12 +109,10 @@ export default {
 
 
 <style scoped>
-
   .register-form-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
   }
-
 </style>
