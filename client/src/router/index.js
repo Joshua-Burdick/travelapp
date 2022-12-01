@@ -7,6 +7,7 @@ import LoginPage from '../views/LoginPage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import ErrorPage from '../views/404Error.vue'
 import WeatherPage from '../views/WeatherPage.vue'
+import ProfilePage from '../views/ProfilePage.vue'
 
 Vue.use(VueRouter)
 
@@ -30,6 +31,11 @@ const routes = [
     path: '/register',
     name: 'register',
     component: RegisterPage
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: ProfilePage
   },
   {
     path: '/weather',
