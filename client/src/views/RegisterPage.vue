@@ -1,13 +1,14 @@
 <template>
   <div class="register-form-container">
-    <v-card width="500">
+    <v-card width="400">
       <v-card-title>
-        <h1 class="display-1">Register</h1>
+        <h1 class="display-1">
+          Register
+        </h1>
       </v-card-title>
       <v-card-text>
         <v-form 
           ref="form"
-          v-model="valid" 
           lazy-validation
         >
           <v-text-field
@@ -41,6 +42,9 @@
             @click:append="showPassword2 = !showPassword2"
           ></v-text-field>
         </v-form>
+        <div class="text-h6 red--text">
+          {{ error }}
+        </div>
       </v-card-text>
       <v-card-actions>
         <v-btn 
@@ -48,6 +52,13 @@
           @click="register"
         >
           Register
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn 
+          @click="login"
+          text
+        >
+          Login here
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -58,7 +69,6 @@
 export default {
   data() {
     return {
-      valid: true,
       name: "",
       nameRules: [
         (v) => !!v || "Name is required",
@@ -79,6 +89,7 @@ export default {
       password2Rules: [
         (v) => (v === this.password) || "Passwords must match",
       ],
+      error: "",
     }
   },
   methods: {
@@ -86,21 +97,55 @@ export default {
       // make sure form is valid
       if (this.$refs.form.validate()) {
         // send post request to server
-        this.axios.post('/api/register', {
-          name: this.name,
+        this.axios.post('/api/auth/register', {
+          username: this.name,
           email: this.email,
-          password: this.password,
+          password: this.password
         })
-        .then(() => {
-          // if successful, redirect to login page
-          this.$router.push({
-            name: 'login'
-          })
+        .then(response => {
+          if (response.data.user) {
+            console.log(response.data.user)
+            // if successful, redirect to login page
+            this.$router.push({
+              name: 'login'
+            })
+          } else {
+            // if not successful, display error message
+            this.error = response.data.error
+          }
         })
         .catch((error) => {
           // if error, show error message
           console.log(error)
         })
+      }
+    },
+    login() {
+      // redirect to login page
+      this.$router.push({
+        name: 'login'
+      })
+    }
+  },
+  watch: {
+    // clear error message when user starts typing
+    name() {
+      this.error = ''
+    },
+    email() {
+      this.error = ''
+    },
+    password() {
+      this.error = ''
+    },
+    password2() {
+      this.error = ''
+    },
+    error(v) {
+      if (v) {
+        setTimeout(() => {
+          this.error = ''
+        }, 3000)
       }
     }
   }

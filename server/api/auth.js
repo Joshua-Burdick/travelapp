@@ -6,22 +6,28 @@ const Account = require('../models/accounts');
 router.post('/register', async (req, res) => {
   const createdUser = new Account({
     username: req.body.username,
-    password: req.body.password
+    password: req.body.password,
+    email: req.body.email
   });
 
   try {
     const postUser = await createdUser.save();
-    res.json(postUser);
+    res.json({
+      message: 'User created successfully',
+      user: postUser
+    });
   } catch (error) {
-    res.json({ error });
+    res.json({ 
+      error 
+    });
   };
 });
 
 // route for logging in a user
 router.post('/login', async (req, res) => {
-  let USER;
+  let user;
   try {
-      USER = await Account.findOne({ 
+    user = await Account.findOne({ 
       username: req.body.username
     });
   } catch (error) {
@@ -29,8 +35,8 @@ router.post('/login', async (req, res) => {
       error 
     });
   } finally {
-    if (USER) {
-      if (USER.password === req.body.password) {
+    if (user) {
+      if (user.password === req.body.password) {
         res.json({ 
           message: 'Login successful',
           authed: true
@@ -48,7 +54,52 @@ router.post('/login', async (req, res) => {
       });
     }
   }
-}); 
-  
+});
 
+// get user email by username
+router.get('/email/:username', async (req, res) => {
+  let user;
+  try {
+    user = await Account.findOne({
+      username: req.params.username
+    });
+  } catch (error) {
+    res.json({
+      error
+    });
+  } finally {
+    if (user) {
+      res.json({
+        email: user.email
+      });
+    } else {
+      res.json({
+        message: 'User not found'
+      });
+    }
+  }
+});
+
+// get all users
+router.get('/all', async (req, res) => {
+  let users;
+  try {
+    users = await Account.find();
+  } catch (error) {
+    res.json({
+      error
+    });
+  } finally {
+    if (users) {
+      res.json({
+        users
+      });
+    } else {
+      res.json({
+        message: 'No users found'
+      });
+    }
+  }
+});
+  
 module.exports = router;
