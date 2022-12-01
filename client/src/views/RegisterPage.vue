@@ -5,7 +5,11 @@
         <h1 class="display-1">Register</h1>
       </v-card-title>
       <v-card-text>
-        <v-form ref="form" v-model="valid" lazy-validation>
+        <v-form 
+          ref="form"
+          v-model="valid" 
+          lazy-validation
+        >
           <v-text-field
             v-model="name"
             :rules="nameRules"
@@ -39,7 +43,12 @@
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="primary" @click="register">Register</v-btn>
+        <v-btn 
+          color="primary" 
+          @click="register"
+        >
+          Register
+        </v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -70,6 +79,27 @@ export default {
       password2Rules: [
         (v) => (v === this.password) || "Passwords must match",
       ],
+    }
+  },
+  methods: {
+    register() {
+      // make sure form is valid
+      if (this.$refs.form.validate()) {
+        // send post request to server
+        this.axios.post('/api/register', {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+        })
+        .then(() => {
+          // if successful, redirect to login page
+          this.$router.push('/login')
+        })
+        .catch((error) => {
+          // if error, show error message
+          console.log(error)
+        })
+      }
     }
   }
 }
