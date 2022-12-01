@@ -5,8 +5,19 @@
       class="card-container pb-2 px-2"
       dark
     >
-      <v-card-title>
-        <h1 class="display-1 white--text">
+      <v-btn
+        @click="home"
+        text
+        style="position: absolute; left: 0; top: 0;"
+      >
+        <v-icon 
+          class="mr-1" 
+          small
+        >mdi-arrow-left</v-icon>
+        Home
+      </v-btn>
+      <v-card-title class="center mt-1 mb-3">
+        <h1>
           Login
         </h1>
       </v-card-title>
@@ -18,6 +29,7 @@
           <v-text-field
             v-model="username"
             :rules="nameRules"
+            filled
             label="Name"
           ></v-text-field>
           <v-text-field
@@ -27,6 +39,7 @@
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="passwordRules"
             label="Password"
+            filled
           ></v-text-field>
         </v-form>
         <div class="text-h6 red--text">
@@ -43,7 +56,7 @@
         <v-spacer></v-spacer>
         <v-btn 
           @click="register"
-          tex
+          text
         >
           Register here
         </v-btn>
@@ -93,6 +106,11 @@ export default {
     register() {
       this.$router.push({ 
         name: 'register' 
+      });
+    },
+    home() {
+      this.$router.push({ 
+        name: 'home' 
       });
     }
   },

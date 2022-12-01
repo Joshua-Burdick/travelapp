@@ -5,8 +5,19 @@
       class="card-container pb-2 px-2"
       dark
     >
-      <v-card-title>
-        <h1 class="display-1">
+      <v-btn
+        @click="home"
+        text
+        style="position: absolute; left: 0; top: 0;"
+      >
+        <v-icon 
+          class="mr-1"
+          small
+        >mdi-arrow-left</v-icon>
+        Home
+      </v-btn>
+      <v-card-title class="center mb-3">
+        <h1>
           Register
         </h1>
       </v-card-title>
@@ -19,6 +30,7 @@
             v-model="name"
             :rules="nameRules"
             label="Name"
+            filled
             required
           ></v-text-field>
           <v-text-field
@@ -26,6 +38,7 @@
             :rules="emailRules"
             label="E-mail"
             required
+            filled
           ></v-text-field>
           <v-text-field
             v-model="password"
@@ -33,6 +46,7 @@
             :rules="passwordRules"
             :type="showPassword ? 'text' : 'password'"
             label="Password"
+            filled
             required
             @click:append="showPassword = !showPassword"
           ></v-text-field>
@@ -43,6 +57,7 @@
             :type="showPassword ? 'text' : 'password'"
             label="Re-enter Password"
             required
+            filled
             @click:append="showPassword2 = !showPassword2"
           ></v-text-field>
         </v-form>
