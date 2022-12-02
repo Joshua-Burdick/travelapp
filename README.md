@@ -41,6 +41,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ![image](https://user-images.githubusercontent.com/49251120/205366815-dde3e608-ceaf-4125-a8d9-88398a8c810f.png)
 
+![image](https://user-images.githubusercontent.com/49251120/205368102-35349702-2980-4884-abe5-97d099fd94b6.png)
+
+![image](https://user-images.githubusercontent.com/49251120/205368176-fd7463bd-8019-4c34-94b3-98b141e3a111.png)
+
+![image](https://user-images.githubusercontent.com/49251120/205368386-fe589cb0-28cf-4130-ad45-915c2ae35eb6.png)
+
 ![image](https://user-images.githubusercontent.com/49251120/205367389-789cb662-ab9b-475d-b479-27fcd0b23564.png)
 
 ![image](https://user-images.githubusercontent.com/49251120/205367746-a7c06379-2e9b-4a5c-b4f8-49ca0238c691.png)
