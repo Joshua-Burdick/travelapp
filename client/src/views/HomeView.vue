@@ -60,7 +60,7 @@ export default {
       Storage.set("Website", PLACE.website);
 
       this.$router.push({
-        name: "search",
+        name: "search"
       });
     });
   },
@@ -77,7 +77,7 @@ export default {
   methods: {
     sendUserToLogin() {
       this.$router.push({
-        name: "login",
+        name: "login"
       });
     },
   },

@@ -1,13 +1,18 @@
 <template>
     <div class="page">
+        <v-btn
+            @click.stop="home"
+            text
+            style="position: absolute; z-index: 2;"
+        >
+            <v-icon>mdi-arrow-left</v-icon>
+            Home
+        </v-btn>
         <MapComponent id="map"/>
 
         <WeatherCard id="weather"/>
 
-        <v-card id="info-card">
-            <v-card-title class="center">TEST</v-card-title>
-            <v-card-text><a id="site-link" target="_blank">Location Website</a></v-card-text>
-        </v-card>
+        <p id="loc-site">Visit the location's <a id="site-link" target="_blank">website</a></p>
     </div>
 </template>
 
@@ -35,7 +40,11 @@ export default {
         document.getElementById("site-link").href = this.website;
     },
     methods: {
-
+        home() {
+            this.$router.push({
+                name: 'home'
+            });
+        }
     },
     computed: {
         lat: {
@@ -95,8 +104,10 @@ export default {
         right: 48%;
     }
 
-    #info-card {
+    #loc-site {
         position: absolute;
+        top: 96.5%;
+        left: 5%;
         z-index: 2;
     }
 
