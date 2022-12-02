@@ -1,22 +1,18 @@
 <template>
     <div class="page">
+        <v-btn
+            @click.stop="home"
+            text
+            style="position: absolute; z-index: 2;"
+        >
+            <v-icon>mdi-arrow-left</v-icon>
+            Home
+        </v-btn>
         <MapComponent id="map"/>
 
-        <v-card
-            id="some-text"
-            elevation="2"
-        >
-            <v-card-title>Test</v-card-title>
-            <v-card-text>
-                <div>Latitude: {{ lat }}</div>
-                <br>
-                <div>Longitude: {{ lng }}</div>
-                <br>
-                <div>Budget: ${{ budget }}</div>
-            </v-card-text>
-        </v-card>
-
         <WeatherCard id="weather"/>
+
+        <p id="loc-site">Visit the location's <a id="site-link" target="_blank">website</a></p>
     </div>
 </template>
 
@@ -39,8 +35,16 @@ export default {
     created() {
         document.title = "TravelApp - Search";
     },
+    mounted() {
+        // Create the external link to the city website
+        document.getElementById("site-link").href = this.website;
+    },
     methods: {
-
+        home() {
+            this.$router.push({
+                name: 'home'
+            });
+        }
     },
     computed: {
         lat: {
@@ -66,6 +70,14 @@ export default {
             set(newBudget) {
                 Storage.set('Budget', newBudget);
             }
+        },
+        website: {
+            get() {
+                return Storage.get('Website');
+            },
+            set(newSite) {
+                Storage.set('Website', newSite);
+            }
         }
     }
 };
@@ -85,17 +97,18 @@ export default {
         z-index: 1;
     }
 
-    #some-text {
-        position: absolute;
-        z-index: 2;
-        top: 0;
-        margin-left: 60%;
-    }
-
     #weather {
         position: absolute;
         z-index: 2;
-        margin-left: 30%;
+        top: 20px;
+        right: 48%;
+    }
+
+    #loc-site {
+        position: absolute;
+        top: 96.5%;
+        left: 5%;
+        z-index: 2;
     }
 
 </style>
