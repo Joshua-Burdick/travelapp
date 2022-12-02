@@ -1,0 +1,1 @@
+'airport','lodging','bar','movie_theater','bowling_alley','bus_station','museum','cafe','night_club','campground','car_rental','casino','church','restaurant','stadium','synagogue','subway_station','mosque','taxi_stand','train_Station','tourist_attraction','rv_park','zoo'

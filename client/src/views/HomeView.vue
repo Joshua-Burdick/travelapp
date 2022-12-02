@@ -4,7 +4,7 @@
 
     <!-- Login Button -->
     <div class="login ma-5">
-      <v-btn @click.stop="sendUserToLogin">
+      <v-btn id="test" @click.stop="sendUserToLogin">
         <v-icon>mdi-account</v-icon>
         LOG IN
       </v-btn>
@@ -49,8 +49,6 @@ export default {
       document.getElementById("autocomplete")
     );
 
-    
-
     google.maps.event.addListener(this.autocomplete, "place_changed", () => {
       const PLACE = this.autocomplete.getPlace();
       const LAT = PLACE.geometry.location.lat();
@@ -60,22 +58,6 @@ export default {
       Storage.set("Longitude", LNG);
 
       Storage.set("Website", PLACE.website);
-
-      let map = new google.maps.Map(document.getElementById('autocomplete'));
-      let service = new google.maps.places.PlacesService(map);
-      let request = {
-        location: new google.maps.LatLng(Number(Storage.get('Latitude')), Number(Storage.get('Longitude'))),
-        radius: '500',
-        query: 'restaurant'
-      };
-      service.textSearch(request, (results, status) => {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-          for (let i = 0; i < results.length; i++) {
-            let place = results[i];
-            console.log(place);
-          }
-        }
-      });
 
       this.$router.push({
         name: "search",
