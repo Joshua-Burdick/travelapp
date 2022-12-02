@@ -7,5 +7,5 @@ export default function addRecentActivity(activity) {
 
 export function getRecentActivity() {
   // get recent activity from sessionStorage
-  return JSON.parse(localStorage.getItem('recentActivity')) || [];
+  return JSON.parse(localStorage.getItem('recentActivity')).reverse() || [];
 }

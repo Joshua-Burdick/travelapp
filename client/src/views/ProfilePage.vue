@@ -12,14 +12,8 @@
         <h1 class="text-h3 font-weight-black my-5">
           {{ user }}
         </h1>
-        <div class="text-h6 font-weight-black">
-          Registered Email Address:
-        </div>
-        <p>
-          {{ email }}
-        </p>
-        <div class="recent-activity-feed">
-          <div class="text-h6 font-weight-black center">
+        <div class="recent-activity-feed mb-5">
+          <div class="text-h5 font-weight-black center">
             Recent Searches:
           </div>
           <div class="recent-activity-feed-container">
@@ -27,12 +21,26 @@
               v-for="activity in recentActivity" 
               :key="activity.id"
             >
-              <b @click="redirectToSearch(activity)">
-                {{ activity.name }}
-              </b>
+              <div 
+                class="center search-item"
+                style="cursor: pointer;"
+              >
+                <v-icon color="info">
+                  mdi-map-marker
+                </v-icon>
+                <b @click="redirectToSearch(activity)">
+                  {{ activity.name }}
+                </b>
+              </div>
             </div>
           </div>
         </div>
+        <div class="text-h6 font-weight-black">
+          Registered Email Address:
+        </div>
+        <p>
+          {{ email }}
+        </p>
         <v-card-actions class="card-actions">
           <v-btn
             @click="back"
@@ -136,5 +144,17 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%
+}
+.recent-activity-feed-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.search-item {
+  transition: 250ms;
+}
+.search-item:hover {
+  color: rgba(195, 227, 255, 0.82);
 }
 </style>
