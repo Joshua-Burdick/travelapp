@@ -41,14 +41,29 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ![image](https://user-images.githubusercontent.com/49251120/205366815-dde3e608-ceaf-4125-a8d9-88398a8c810f.png)
 
+Current Main page of the website application. Users can login or register in the top right of the screen, but it is not required. You can simply type in the travel destination to get started. 
+
 ![image](https://user-images.githubusercontent.com/49251120/205368102-35349702-2980-4884-abe5-97d099fd94b6.png)
+
+If you already have an account, you can type in your name and password to login in here.
 
 ![image](https://user-images.githubusercontent.com/49251120/205368176-fd7463bd-8019-4c34-94b3-98b141e3a111.png)
 
+If you do not already have an account, it is easy to create an account with the registration here. 
+
 ![image](https://user-images.githubusercontent.com/49251120/205368386-fe589cb0-28cf-4130-ad45-915c2ae35eb6.png)
+
+Your profile page showcases your recent travel searches, as well as your registered email address. You can logout of your account from the profile page. 
 
 ![image](https://user-images.githubusercontent.com/49251120/205367389-789cb662-ab9b-475d-b479-27fcd0b23564.png)
 
+The main search brings you to a google map of the area using google maps API. This is where you can plan your trip to locate what you would like to do. Soon you will be able to narrow down your search depending on the type of attractions, restaurants, or lodging you would like. 
+
 ![image](https://user-images.githubusercontent.com/49251120/205367746-a7c06379-2e9b-4a5c-b4f8-49ca0238c691.png)
 
+You can see detailed info about the weather in the area you are planning the trip for by clicking on the weather button on the map. 
+
 ![image](https://user-images.githubusercontent.com/49251120/205367788-f80cbe8b-9702-4c3c-8951-598eff730020.png)
+
+If there is a local website for the area, this link in the bottom left of the screen can take you there to see what the location has to offer.
+
