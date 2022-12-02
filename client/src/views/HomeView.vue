@@ -4,7 +4,7 @@
 
     <!-- Login Button -->
     <div class="login ma-5">
-      <v-btn @click.stop="sendUserToLogin">
+      <v-btn id="test" @click.stop="sendUserToLogin">
         <v-icon>mdi-account</v-icon>
         LOG IN
       </v-btn>
@@ -34,7 +34,8 @@ export default {
   data() {
     return {
       // attaches to the google maps autocomplete api
-      autocomplete: undefined
+      autocomplete: undefined,
+      nearby: undefined
     };
   },
   created() {
@@ -59,7 +60,7 @@ export default {
       Storage.set("Website", PLACE.website);
 
       this.$router.push({
-        name: "search",
+        name: "search"
       });
     });
   },
@@ -76,7 +77,7 @@ export default {
   methods: {
     sendUserToLogin() {
       this.$router.push({
-        name: "login",
+        name: "login"
       });
     },
   },
