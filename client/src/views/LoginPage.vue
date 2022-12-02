@@ -1,87 +1,147 @@
 <template>
-    <div>
-        <div class="home-btn ma-5">
-            <!-- Go back to home page -->
-            <v-btn @click.stop="sendUserToHome">
-                <v-icon>mdi-home</v-icon>
-            </v-btn>
+  <div class="login-form-container">
+    <v-card 
+      width="400"
+      class="card-container pb-2 px-2"
+      dark
+    >
+      <v-btn
+        @click="home"
+        text
+        style="position: absolute; left: 0; top: 0;"
+      >
+        <v-icon 
+          class="mr-1" 
+          small
+        >mdi-arrow-left</v-icon>
+        Home
+      </v-btn>
+      <v-card-title class="center mt-1 mb-3">
+        <h1>
+          Login
+        </h1>
+      </v-card-title>
+      <v-card-text>
+        <v-form 
+          ref="form" 
+          lazy-validation
+        >
+          <v-text-field
+            v-model="username"
+            :rules="nameRules"
+            prepend-icon="mdi-account"
+            filled
+            label="Name"
+          ></v-text-field>
+          <v-text-field
+            v-model="password"
+            @click:append="showPassword = !showPassword"
+            :type="showPassword ? 'text' : 'password'"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="passwordRules"
+            prepend-icon="mdi-lock"
+            label="Password"
+            filled
+          ></v-text-field>
+        </v-form>
+        <div class="text-h6 red--text">
+          {{ error }}
         </div>
-
-        <!-- Username Field -->
-        <div class= "center">
-            <v-col
-                id="username-box"
-                cols="12"
-                sm="6"
-                md="3"
-            >
-                <v-text-field
-                    label="Username"
-                    :rules="rules"
-                    counter="20"
-                >
-                </v-text-field>
-            </v-col>
-        </div>
-
-        <br><br>
-
-        <!-- Password field -->
-        <div class="center">
-            <v-col
-                id="password-box"
-                cols="12"
-                sm="6"
-                md="3"
-            >
-                <v-text-field
-                    label="Password"
-                    :rules="rules"
-                    counter="20"
-                >
-                </v-text-field>
-            </v-col>
-        </div>
-
-        <!-- Send to register page -->
-        <p class="question center">Not a member yet? <button id="register" @click.stop="sendUsertoRegister">Register here!</button></p>
-
-        
-    </div>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn 
+          @click="login"
+          color="primary" 
+        >
+          Login
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn 
+          @click="register"
+          text
+        >
+          Register here
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </div>
 </template>
 
 <script>
 export default {
-    data: () => {
-        return {
-            rules: [val => val.length <= 20 || "Max 20 characters"]
+  data: () => ({
+    username: '',
+    password: '',
+    showPassword: false,
+    error: '',
+    nameRules: [
+      v => !!v || 'Name is required',
+    ],
+    passwordRules: [
+      v => !!v || 'Password is required',
+    ],
+  }),
+  methods: {
+    login() {
+
+      if (!this.$refs.form.validate()) return
+
+      this.axios.post('/api/auth/login', {
+        username: this.username,
+        password: this.password
+      })
+      .then(response => {
+        console.log(response.data)
+        if (response.data.authed) {
+          localStorage.setItem('username', this.username);
+          this.$router.push({ 
+            name: 'home' 
+          });
+        } else {
+          this.error = "Invalid username or password";
         }
+      })
+      .catch(error => {
+        console.log(error)
+      })
     },
-    created() {
-        document.title = "TravelApp - Log In";
+    register() {
+      this.$router.push({ 
+        name: 'register' 
+      });
     },
-    methods: {
-        sendUsertoRegister() {
-            this.$router.push({
-                name: 'register'
-            });
-        },
-        sendUserToHome() {
-            this.$router.push({
-                name: 'home'
-            });
-        }
+    home() {
+      this.$router.push({ 
+        name: 'home' 
+      });
     }
-}
+  },
+  watch: {
+    error() {
+      if (this.error) {
+        setTimeout(() => {
+          this.error = ''
+        }, 3000)
+      }
+    }
+  }
+};
 </script>
 
 <style scoped>
-
-    .question {
-        margin-top: 25%;
-    }
-
-    #register {
-        color: blue;
-    }
+.login-form-container {
+  background-image: url("https://thumbs.gfycat.com/LatePositiveHerculesbeetle-size_restricted.gif");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+.card-container {
+  border: 1px solid white; 
+  border-radius: 10px; 
+  background-color: rgba(255, 255, 255, 0.1);
+}
 </style>
+
