@@ -1,24 +1,19 @@
 {
-  "name": "travel-finder",
+  "name": "travel-app",
   "version": "1.0.0",
-  "description": "Backend Travel App",
+  "description": "Travel App",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/index.js",
     "dev": "nodemon server/index.js"
   },
-  "author": "Joshua Burdick, Paul Antuono, Matt Fisher and Yonus Chiboub",
-  "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
-    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "vue-router": "^3.5.3"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
+    "express":"*",
+    "body-parser":"*",
+    "mongoose": "^6.7.5"
   }
 }

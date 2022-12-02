@@ -33,7 +33,7 @@
         {{ user }}
       </v-btn>
     </div>
-
+    
     <!-- Search criteria -->
     <div class="search">
       <v-text-field
