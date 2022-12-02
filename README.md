@@ -40,3 +40,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### Screenshots of Application
 
 ![image](https://user-images.githubusercontent.com/49251120/205366815-dde3e608-ceaf-4125-a8d9-88398a8c810f.png)
+
+![image](https://user-images.githubusercontent.com/49251120/205367389-789cb662-ab9b-475d-b479-27fcd0b23564.png)
+
+![image](https://user-images.githubusercontent.com/49251120/205367746-a7c06379-2e9b-4a5c-b4f8-49ca0238c691.png)
+
+![image](https://user-images.githubusercontent.com/49251120/205367788-f80cbe8b-9702-4c3c-8951-598eff730020.png)
