@@ -79,10 +79,14 @@ export default {
     this.axios.get('/api/auth/email/' + this.user)
       .then(response => {
         console.log(response.data)
-        this.email = response.data.email;
+        if (response.data?.message) {
+          this.email = 'Email Not Found'
+        } else {
+          this.email = response.data.email
+        }
       })
       .catch(error => {
-        console.log(error);
+        console.warn(error)
       });
   },
   computed: {
