@@ -15,14 +15,28 @@
         <div class="text-h6 font-weight-black">
           Registered Email Address:
         </div>
-          <p>
-            {{ email }}
-          </p>
+        <p>
+          {{ email }}
+        </p>
+        <div class="recent-activity-feed">
+          <div class="text-h6 font-weight-black center">
+            Recent Searches:
+          </div>
+          <div class="recent-activity-feed-container">
+            <div 
+              v-for="activity in recentActivity" 
+              :key="activity.id"
+            >
+              <b @click="redirectToSearch(activity)">
+                {{ activity.name }}
+              </b>
+            </div>
+          </div>
+        </div>
         <v-card-actions class="card-actions">
           <v-btn
             @click="back"
             text
-
           >
             <v-icon class="mr-2">mdi-arrow-left</v-icon>
             Back
@@ -43,6 +57,9 @@
 </template>
 
 <script>
+import { getRecentActivity } from "../utils/RecentActivity.js";
+import Storage from "../classes/Storage.js";
+
 export default {
   data() {
     return {
@@ -60,6 +77,11 @@ export default {
         console.log(error);
       });
   },
+  computed: {
+    recentActivity() {
+      return getRecentActivity();
+    }
+  },
   methods: {
     logout() {
       localStorage.clear();
@@ -70,6 +92,13 @@ export default {
     back() {
       this.$router.push({
         name: 'home'
+      });
+    },
+    redirectToSearch(activity) {
+      Storage.set("Latitude", activity.lat);
+      Storage.set("Longitude", activity.lng);
+      this.$router.push({
+        name: 'search'
       });
     }
   }

@@ -53,6 +53,7 @@
 /* eslint-disable */
 // @ is an alias to /src
 import Storage from "../classes/Storage.js";
+import addRecentActivity from "../utils/RecentActivity.js";
 
 export default {
   name: "HomeView",
@@ -76,6 +77,13 @@ export default {
       const PLACE = this.autocomplete.getPlace();
       const LAT = PLACE.geometry.location.lat();
       const LNG = PLACE.geometry.location.lng();
+
+      // add to recent activity feed
+      addRecentActivity({
+        name: PLACE.name,
+        lat: LAT,
+        lng: LNG,
+      });
 
       Storage.set("Latitude", LAT);
       Storage.set("Longitude", LNG);
