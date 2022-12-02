@@ -36,16 +36,55 @@
 
     <!-- Search criteria -->
     <div class="search">
+      <v-btn
+        @click="showBudget = !showBudget"
+        fab
+        dark
+        :color="showBudget ? 'red' : 'green'"
+        style="position: absolute; top: 0; left: -70px;"
+      >
+        <v-icon 
+          v-if="!showBudget"
+          large
+        >mdi-cash</v-icon>
+        <div 
+          v-else
+          class="text-h4 font-weight-black"
+        >{{ budgetValue }}</div>
+      </v-btn>
       <v-text-field
+        id="autocomplete"
+        style="z-index: 2"
         filled
         solo
         dark
         label="Enter a location"
-        id="autocomplete"
         prepend-inner-icon="mdi-map-marker"
       ></v-text-field>
+      <div 
+        class="budget-container pa-2"
+        :style="budgetOnDisplay"
+      >
+        <div
+          v-for="budgetTier in budgetScale"
+          :key="budgetTier"
+        >
+          <v-icon
+            v-if="budgetTier <= budgetValue"
+            @click="budgetValue = budgetTier"
+            large
+            color="green"
+          >mdi-currency-usd</v-icon>
+          <v-icon
+            v-else
+            @click="budgetValue = budgetTier"
+            large
+            color="red"
+          >mdi-currency-usd</v-icon>
+        </div>
+      </div>
     </div>
-
+      
   </div>
 </template>
  
@@ -63,6 +102,10 @@ export default {
       autocomplete: undefined,
       // gets logged in user
       user: localStorage.getItem('username'),
+      // budget scale
+      budgetScale: 13,
+      budgetValue: 1,
+      showBudget: false,
     };
   },
   created() {
@@ -100,7 +143,18 @@ export default {
       set(newBudget) {  
         Storage.set("Budget", newBudget);
       }
-    }
+    },
+    budgetOnDisplay() {
+      if (this.showBudget) {
+        return {
+          transform: "translateY(-40%)",
+        }
+      } else {
+        return {
+          opacity: 0,
+        }
+      }
+    },
   },
   methods: {
     login() {
@@ -166,6 +220,21 @@ export default {
 
 .search {
   padding: 2px 2px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.budget-container {
+  transform: translateY(-160%);
+  background-color: rgba(30, 30, 30, 0.5);
+  border-radius: 5px;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: 400ms;
 }
 </style>
 
