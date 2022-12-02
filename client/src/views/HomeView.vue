@@ -40,17 +40,17 @@
         @click="showBudget = !showBudget"
         fab
         dark
-        :color="showBudget ? 'red' : 'green'"
+        :color="showBudget ? 'secondary' : 'primary'"
         style="position: absolute; top: 0; left: -70px;"
       >
         <v-icon 
           v-if="!showBudget"
           large
-        >mdi-cash</v-icon>
-        <div 
+        >mdi-currency-usd</v-icon>
+        <v-icon 
           v-else
-          class="text-h4 font-weight-black"
-        >{{ budgetValue }}</div>
+          large
+        >mdi-chevron-up</v-icon>
       </v-btn>
       <v-text-field
         id="autocomplete"
@@ -80,7 +80,7 @@
             @click="budgetValue = budgetTier"
             large
             color="red"
-          >mdi-currency-usd</v-icon>
+          >mdi-currency-usd-off</v-icon>
         </div>
       </div>
     </div>

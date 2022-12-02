@@ -21,7 +21,7 @@
               v-for="activity in recentActivity" 
               :key="activity.id"
             >
-              <div 
+              <div
                 class="center search-item"
                 style="cursor: pointer;"
               >
@@ -31,7 +31,21 @@
                 <b @click="redirectToSearch(activity)">
                   {{ activity.name }}
                 </b>
-              </div>
+              </div> 
+            </div>
+            <div 
+              v-if="!recentActivity.length"
+              class="red--text text-p font-weight-black center"
+            >
+              No Recent Searches
+            </div>
+            <div 
+              v-else
+              @click="deleteSearchHistory"
+              class="red--text text-p font-weight-black center mt-2 delete-search-history"
+              style="cursor: pointer;"
+            >
+              Delete Search History
             </div>
           </div>
         </div>
@@ -112,6 +126,10 @@ export default {
       this.$router.push({
         name: 'search'
       });
+    },
+    deleteSearchHistory() {
+      localStorage.removeItem('recentActivity');
+      this.$router.go();
     }
   }
 };
@@ -157,8 +175,13 @@ export default {
 }
 .search-item {
   transition: 250ms;
+  color: rgb(200, 230, 255);
 }
 .search-item:hover {
-  color: rgba(195, 227, 255, 0.82);
+  color: white;
+}
+
+.delete-search-history:hover {
+  text-decoration: underline;
 }
 </style>
