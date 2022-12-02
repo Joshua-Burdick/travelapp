@@ -52,6 +52,22 @@
           large
         >mdi-chevron-up</v-icon>
       </v-btn>
+      <v-btn
+        @click="showTransitMode = !showTransitMode"
+        fab
+        dark
+        :color="showTransitMode ? 'secondary' : 'purple'"
+        style="position: absolute; top: 0; right: -70px;"
+      >
+        <v-icon 
+          v-if="!showTransitMode"
+          large
+        >mdi-airplane</v-icon>
+        <v-icon 
+          v-else
+          large
+        >mdi-chevron-down</v-icon>
+      </v-btn>
       <v-text-field
         id="autocomplete"
         style="z-index: 2"
@@ -61,6 +77,28 @@
         label="Enter a location"
         prepend-inner-icon="mdi-map-marker"
       ></v-text-field>
+      <div 
+        class="transit-container pa-2"
+        :style="transitOnDisplay"
+      >
+        <div
+          v-for="budgetTier in budgetScale"
+          :key="budgetTier"
+        >
+          <v-icon
+            v-if="budgetTier <= budgetValue"
+            @click="budgetValue = budgetTier"
+            large
+            color="green"
+          >mdi-currency-usd</v-icon>
+          <v-icon
+            v-else
+            @click="budgetValue = budgetTier"
+            large
+            color="red"
+          >mdi-currency-usd-off</v-icon>
+        </div>
+      </div>
       <div 
         class="budget-container pa-2"
         :style="budgetOnDisplay"
@@ -106,6 +144,7 @@ export default {
       budgetScale: 13,
       budgetValue: 1,
       showBudget: false,
+      showTransitMode: false,
     };
   },
   created() {
@@ -147,7 +186,7 @@ export default {
     budgetOnDisplay() {
       if (this.showBudget) {
         return {
-          transform: "translateY(-40%)",
+          transform: "translateY(-140%)",
         }
       } else {
         return {
@@ -155,6 +194,17 @@ export default {
         }
       }
     },
+    transitOnDisplay() {
+      if (this.showTransitMode) {
+        return {
+          transform: "translateY(-280%)",
+        }
+      } else {
+        return {
+          opacity: 0,
+        }
+      }
+    }
   },
   methods: {
     login() {
@@ -226,7 +276,18 @@ export default {
   transform: translate(-50%, -50%);
 }
 .budget-container {
-  transform: translateY(-160%);
+  transform: translateY(-200%);
+  background-color: rgba(30, 30, 30, 0.5);
+  border-radius: 5px;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: 400ms;
+}
+.transit-container {
+  transform: translateY(-150%);
   background-color: rgba(30, 30, 30, 0.5);
   border-radius: 5px;
   border: 1px solid white;
