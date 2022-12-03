@@ -1,10 +1,6 @@
 <template>
   <div class="home center">
-
-    <div
-      v-if="$vuetify.breakpoint.mdAndUp" 
-      class="planet"
-    ></div>
+    <div v-if="$vuetify.breakpoint.mdAndUp" class="planet"></div>
 
     <!-- Login Button -->
     <div class="login ma-5">
@@ -33,7 +29,7 @@
         {{ user }}
       </v-btn>
     </div>
-
+    
     <!-- Search criteria -->
     <div class="search">
       <v-btn
@@ -117,7 +113,6 @@
         </div>
       </div>
     </div>
-      
   </div>
 </template>
  
@@ -133,6 +128,7 @@ export default {
     return {
       // attaches to the google maps autocomplete api
       autocomplete: undefined,
+      nearby: undefined,
       // gets logged in user
       user: localStorage.getItem('username'),
       // budget scale
@@ -154,7 +150,10 @@ export default {
   created() {
     document.title = "TravelApp";
   },
-  mounted() {
+  async mounted() {
+    // Quarter-second delay to allow the API to load
+    await new Promise((resolve) => setTimeout(() => resolve(), 250));
+
     this.autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete")
     );
@@ -173,8 +172,11 @@ export default {
 
       Storage.set("Latitude", LAT);
       Storage.set("Longitude", LNG);
-      this.$router.push({ 
-        name: "search" 
+
+      Storage.set("Website", PLACE.website);
+
+      this.$router.push({
+        name: "search"
       });
     });
   },
@@ -183,7 +185,7 @@ export default {
       get() {
         return Storage.get("Budget");
       },
-      set(newBudget) {  
+      set(newBudget) {
         Storage.set("Budget", newBudget);
       }
     },
@@ -220,8 +222,8 @@ export default {
       this.$router.push({
         name: "profile"
       });
-    }
-  }
+    },
+  },
 };
 </script>
  
