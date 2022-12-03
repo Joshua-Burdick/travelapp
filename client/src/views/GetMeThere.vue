@@ -1,25 +1,14 @@
 <template>
   <div>
-    <div>
-      <div class="close-open-btn-container">
-        <v-icon 
-          @click="showSidePanel = !showSidePanel"
-          large
-        >
-          {{ showSidePanel ? 'mdi-chevron-left' : 'mdi-chevron-right' }}
-        </v-icon>
-      </div>
-      <tansition>
-        <SidePanel 
-          v-if="showSidePanel"
-          :place="place"
-          :budget="budget"
-          :transit="transit"
-          :distance="distance"
-          :weather="weather"
-        />
-      </tansition>
-    </div>
+    <SidePanel 
+      @toggle-side-panel="showSidePanel = !showSidePanel"
+      :showSidePanel="showSidePanel"
+      :place="place"
+      :budget="budget"
+      :transit="transit"
+      :distance="distance"
+      :weather="weather"
+    />
     <GmapMap 
       :center="{ lat, lng }" 
       :zoom="8" 
