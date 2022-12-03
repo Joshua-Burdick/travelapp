@@ -151,8 +151,8 @@ export default {
     document.title = "TravelApp";
   },
   async mounted() {
-    // Quarter-second delay to allow the API to load
-    await new Promise((resolve) => setTimeout(() => resolve(), 250));
+    // half-second delay to allow the API to load
+    await new Promise((resolve) => setTimeout(() => resolve(), 500));
 
     this.autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete")
@@ -170,14 +170,25 @@ export default {
         lng: LNG,
       });
 
-      Storage.set("Latitude", LAT);
-      Storage.set("Longitude", LNG);
-
-      Storage.set("Website", PLACE.website);
-
       this.$router.push({
-        name: "search"
-      });
+        name: "getmethere",
+        query: {
+          place: PLACE.name,
+          lat: LAT,
+          lng: LNG,
+          budget: this.budgetValue,
+          transit: this.selectedTransit,
+        },
+      })
+
+      // Storage.set("Latitude", LAT);
+      // Storage.set("Longitude", LNG);
+
+      // Storage.set("Website", PLACE.website);
+
+      // this.$router.push({
+      //   name: "search"
+      // });
     });
   },
   computed: {
