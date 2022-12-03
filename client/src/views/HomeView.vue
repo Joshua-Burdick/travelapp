@@ -32,14 +32,86 @@
     
     <!-- Search criteria -->
     <div class="search">
+      <v-btn
+        @click="showBudget = !showBudget"
+        fab
+        dark
+        :color="showBudget ? 'secondary' : 'primary'"
+        style="position: absolute; top: 0; left: -70px;"
+      >
+        <v-icon 
+          v-if="!showBudget"
+          large
+        >mdi-currency-usd</v-icon>
+        <v-icon 
+          v-else
+          large
+        >mdi-chevron-up</v-icon>
+      </v-btn>
+      <v-btn
+        @click="showTransitMode = !showTransitMode"
+        :color="showTransitMode ? 'secondary' : 'purple'"
+        fab
+        dark
+        style="position: absolute; top: 0; right: -70px;"
+      >
+        <v-icon 
+          v-if="!showTransitMode"
+          large
+        >mdi-{{ selectedTransit }}</v-icon>
+        <v-icon 
+          v-else
+          large
+        >mdi-chevron-down</v-icon>
+      </v-btn>
       <v-text-field
+        id="autocomplete"
+        style="z-index: 2"
         filled
         solo
         dark
         label="Enter a location"
-        id="autocomplete"
         prepend-inner-icon="mdi-map-marker"
       ></v-text-field>
+      <div 
+        class="transit-container pa-2"
+        :style="transitOnDisplay"
+      >
+        <div
+          v-for="transitMode in transitModes"
+          :key="transitMode"
+        >
+          <v-icon
+            @click="selectedTransit = transitMode"
+            :style="selectedTransit === transitMode ? '' : 'opacity: 0.33'"
+            large
+            color="white"
+            class="mx-5"
+          >{{ 'mdi-' + transitMode }}</v-icon>
+        </div>
+      </div>
+      <div 
+        class="budget-container pa-2"
+        :style="budgetOnDisplay"
+      >
+        <div
+          v-for="budgetTier in budgetScale"
+          :key="budgetTier"
+        >
+          <v-icon
+            v-if="budgetTier <= budgetValue"
+            @click="budgetValue = budgetTier"
+            large
+            color="green"
+          >mdi-currency-usd</v-icon>
+          <v-icon
+            v-else
+            @click="budgetValue = budgetTier"
+            large
+            color="red"
+          >mdi-currency-usd-off</v-icon>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -58,7 +130,21 @@ export default {
       autocomplete: undefined,
       nearby: undefined,
       // gets logged in user
-      user: localStorage.getItem('username')
+      user: localStorage.getItem('username'),
+      // budget scale
+      budgetScale: 13,
+      budgetValue: 1,
+      showBudget: false,
+      showTransitMode: false,
+      transitModes: [
+        'airplane',
+        'walk', 
+        'bike', 
+        'car', 
+        'bus', 
+        'train'
+      ],
+      selectedTransit: 'airplane',
     };
   },
   created() {
@@ -101,8 +187,30 @@ export default {
       },
       set(newBudget) {
         Storage.set("Budget", newBudget);
-      },
+      }
     },
+    budgetOnDisplay() {
+      if (this.showBudget) {
+        return {
+          transform: "translateY(-140%)",
+        }
+      } else {
+        return {
+          opacity: 0,
+        }
+      }
+    },
+    transitOnDisplay() {
+      if (this.showTransitMode) {
+        return {
+          transform: "translateY(-280%)",
+        }
+      } else {
+        return {
+          opacity: 0,
+        }
+      }
+    }
   },
   methods: {
     login() {
@@ -168,6 +276,32 @@ export default {
 
 .search {
   padding: 2px 2px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.budget-container {
+  transform: translateY(-200%);
+  background-color: rgba(30, 30, 30, 0.5);
+  border-radius: 5px;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: 400ms;
+}
+.transit-container {
+  transform: translateY(-150%);
+  background-color: rgba(30, 30, 30, 0.5);
+  border-radius: 5px;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: 400ms;
 }
 </style>
 
