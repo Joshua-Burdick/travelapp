@@ -13,8 +13,8 @@ export default {
     // get user location
     try {
       navigator.geolocation.getCurrentPosition((position) => {
-        localStorage.setItem('starting_lat', position.coords.latitude);
-        localStorage.setItem('starting_lng', position.coords.longitude);
+        localStorage.setItem('startingLat', position.coords.latitude);
+        localStorage.setItem('startingLng', position.coords.longitude);
       });
     } catch (e) {
       console.log(e);
