@@ -11,7 +11,7 @@
     />
     <GmapMap 
       :center="{ lat, lng }" 
-      :zoom="8" 
+      :zoom="14" 
       :options="options"
       class="map-cover"
     ></GmapMap>

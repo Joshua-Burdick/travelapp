@@ -101,15 +101,17 @@
           <v-icon
             v-if="budgetTier <= budgetValue"
             @click="budgetValue = budgetTier"
+            class="mx-5"
             large
             color="green"
           >mdi-currency-usd</v-icon>
           <v-icon
             v-else
             @click="budgetValue = budgetTier"
+            class="mx-5"
             large
             color="red"
-          >mdi-currency-usd-off</v-icon>
+          >mdi-currency-usd</v-icon>
         </div>
       </div>
     </div>
@@ -132,7 +134,7 @@ export default {
       // gets logged in user
       user: localStorage.getItem('username'),
       // budget scale
-      budgetScale: 13,
+      budgetScale: 4,
       budgetValue: 1,
       showBudget: false,
       showTransitMode: false,
