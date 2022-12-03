@@ -4,7 +4,7 @@
     class="side-panel-container"
   >
     <div 
-      class="side-panel pl-6 pt-8"
+      class="side-panel px-6 py-8"
       style="display: flex; flex-direction: column;"
     >
       <!-- title -->
@@ -67,11 +67,6 @@
           class="text-h3 font-weight-black"
           style="display: flex; align-items: center;"
         >
-          <v-icon
-            class="mr-2"
-            x-large
-            color="black"
-          >mdi-cash-usd</v-icon>
           {{ budgetDisplay }}
         </div>
       </div>
@@ -120,6 +115,21 @@
           {{ transit }}
         </div>
       </div>
+      <v-spacer></v-spacer>
+      <v-btn 
+        
+        color="yellow" 
+        class="text-h6 px-5 py-7 font-weight-black mb-4"
+      >
+        book now with expedia
+      </v-btn>
+      <v-btn 
+        @click="openGoogleMaps"
+        color="secondary" 
+        class="text-h6 px-5 py-7 font-weight-black"
+      >
+        take a look on google maps  
+      </v-btn>
     </div>
     <div 
       @click="toggleSidePanel"
@@ -142,37 +152,46 @@ export default {
     place: String,
     budget: String,
     transit: String,
-    distance: String,
+    distance: Number,
     weather: Object,
   },
   emits: [
     "toggle-side-panel"
   ],
+  methods: {
+    toggleSidePanel() {
+      this.$emit("toggle-side-panel");
+    },
+    openGoogleMaps() {
+      console.log(this.googleMapsLink)
+      window.open(this.googleMapsLink, '_blank');
+    }
+  },
   computed: {
+    googleMapsLink() {
+      const STARTING_CORDS = `${localStorage.getItem('startingLat')},${localStorage.getItem('startingLng')}`;
+      const ENDING_CORDS = `${this.$route.query.lat},${this.$route.query.lng}`;
+      return `https://www.google.com/maps/dir/${STARTING_CORDS}/${ENDING_CORDS}`;
+    },
     sidePanelWidth() {
       return {
         transform: this.showSidePanel ? 'translateX(0)' : 'translateX(-380px)',
       };
     },
     budgetDisplay() {
-      if (this.budget === "0") {
+      if (this.budget == "0") {
         return "Free";
-      } else if (this.budget === "1") {
+      } else if (this.budget == "1") {
         return "$";
-      } else if (this.budget === "2") {
+      } else if (this.budget == "2") {
         return "$$";
-      } else if (this.budget === "3") {
+      } else if (this.budget == "3") {
         return "$$$";
-      } else if (this.budget === "4") {
+      } else if (this.budget == "4") {
         return "$$$$";
       }
     },
-  },
-  methods: {
-    toggleSidePanel() {
-      this.$emit("toggle-side-panel");
-    },
-  },
+  }
 }
 </script>
 
@@ -199,10 +218,7 @@ export default {
 .side-panel {
   background-color: rgba(255, 255, 255, 0.75);
   transition: 500ms;
-  
-  
-  
-  width: 400px;
+  width: 450px;
   height: 100vh;
 }
 </style>
