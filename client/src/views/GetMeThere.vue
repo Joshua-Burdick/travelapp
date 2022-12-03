@@ -74,7 +74,7 @@ export default {
           Math.sin(dLng / 2);
       var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       var d = R * c; // Distance in km
-      return d;
+      return Math.round(d);
     },
     deg2rad(deg) {
       return deg * (Math.PI / 180);

@@ -4,13 +4,48 @@
     class="side-panel-container"
   >
     <div 
-      class="side-panel"
+      class="side-panel center"
+      style="display: flex; flex-direction: column;"
     >
-      Place: {{ place }}
-      Budget: {{ budget }}
-      Transit: {{ transit }}
-      Distance: {{ distance }}km
-      Weather: {{ weather }}
+      <!-- title -->
+      <div>
+        <div 
+          class="text-h5"
+          style="font-weight: 300"
+        >
+          Lets Explore
+        </div>
+        <div class="text-h3 font-weight-black">
+          {{ place }}
+        </div>
+      </div>
+      
+      <!-- distance -->
+      <div>
+        <div 
+          class="text-h5"
+          style="font-weight: 300"
+        >
+          <v-icon>mdi-map-marker-distance</v-icon>
+          Distance
+        </div>
+        <div class="text-h3 font-weight-black">
+          {{ distance }}km
+        </div>
+      </div>
+      
+      <!-- transit -->
+      <div>
+        <div 
+          class="text-h5"
+          style="font-weight: 300"
+        >
+          Preferred Mode of Transit
+        </div>
+        <div class="text-capitalize text-h3 font-weight-black">
+          {{ transit }}
+        </div>
+      </div>
     </div>
     <div 
       @click="toggleSidePanel"
@@ -80,6 +115,10 @@ export default {
 .side-panel {
   background-color: rgba(255, 255, 255, 0.75);
   transition: 500ms;
+  
+  
+  
+  width: 400px;
   height: 100vh;
 }
 </style>
