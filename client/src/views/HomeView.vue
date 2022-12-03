@@ -54,15 +54,15 @@
       </v-btn>
       <v-btn
         @click="showTransitMode = !showTransitMode"
+        :color="showTransitMode ? 'secondary' : 'purple'"
         fab
         dark
-        :color="showTransitMode ? 'secondary' : 'purple'"
         style="position: absolute; top: 0; right: -70px;"
       >
         <v-icon 
           v-if="!showTransitMode"
           large
-        >mdi-airplane</v-icon>
+        >mdi-{{ selectedTransit }}</v-icon>
         <v-icon 
           v-else
           large
@@ -82,21 +82,16 @@
         :style="transitOnDisplay"
       >
         <div
-          v-for="budgetTier in budgetScale"
-          :key="budgetTier"
+          v-for="transitMode in transitModes"
+          :key="transitMode"
         >
           <v-icon
-            v-if="budgetTier <= budgetValue"
-            @click="budgetValue = budgetTier"
+            @click="selectedTransit = transitMode"
+            :style="selectedTransit === transitMode ? '' : 'opacity: 0.33'"
             large
-            color="green"
-          >mdi-currency-usd</v-icon>
-          <v-icon
-            v-else
-            @click="budgetValue = budgetTier"
-            large
-            color="red"
-          >mdi-currency-usd-off</v-icon>
+            color="white"
+            class="mx-5"
+          >{{ 'mdi-' + transitMode }}</v-icon>
         </div>
       </div>
       <div 
@@ -145,6 +140,15 @@ export default {
       budgetValue: 1,
       showBudget: false,
       showTransitMode: false,
+      transitModes: [
+        'airplane',
+        'walk', 
+        'bike', 
+        'car', 
+        'bus', 
+        'train'
+      ],
+      selectedTransit: 'airplane',
     };
   },
   created() {
