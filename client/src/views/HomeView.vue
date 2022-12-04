@@ -1,9 +1,19 @@
 <template>
-  <div class="home center">
-    <div v-if="$vuetify.breakpoint.mdAndUp" class="planet"></div>
+  <div 
+    :style="scaleStyle" 
+    class="home center"
+  >
+    <div 
+      v-if="$vuetify.breakpoint.mdAndUp"
+      :style="transitioningLocation ? { opacity: 0 } : {}" 
+      class="planet"
+    ></div>
 
     <!-- Login Button -->
-    <div class="login ma-5">
+    <div 
+      :style="transitioningLocation ? { opacity: 0 } : {}"
+      class="login ma-5"
+    >
       <v-btn 
         v-if="!user"
         @click.stop="login"
@@ -31,7 +41,10 @@
     </div>
     
     <!-- Search criteria -->
-    <div class="search">
+    <div
+      :style="transitioningLocation ? { opacity: 0 } : {}"
+      class="search"
+    >
       <v-btn
         @click="showBudget = !showBudget"
         fab
@@ -147,6 +160,8 @@ export default {
         'train'
       ],
       selectedTransit: 'airplane',
+      transitioningLocation: false,
+      scaleStyle: {}
     };
   },
   created() {
@@ -172,25 +187,20 @@ export default {
         lng: LNG,
       });
 
-      this.$router.push({
-        name: "getmethere",
-        query: {
-          place: PLACE.name,
-          lat: LAT,
-          lng: LNG,
-          budget: this.budgetValue,
-          transit: this.selectedTransit,
-        },
-      })
+      this.transitioningLocation = true;
 
-      // Storage.set("Latitude", LAT);
-      // Storage.set("Longitude", LNG);
-
-      // Storage.set("Website", PLACE.website);
-
-      // this.$router.push({
-      //   name: "search"
-      // });
+      setTimeout(() => {
+        this.$router.push({
+          name: "getmethere",
+          query: {
+            place: PLACE.name,
+            lat: LAT,
+            lng: LNG,
+            budget: this.budgetValue,
+            transit: this.selectedTransit,
+          },
+        });
+      }, 1500);
     });
   },
   computed: {
@@ -237,6 +247,17 @@ export default {
       });
     },
   },
+  watch: {
+    transitioningLocation(v) {
+      if (v) {
+        setTimeout(() => {
+          this.scaleStyle = {
+            transform: "scale(510)"
+          };
+        }, 500);
+      }
+    }
+  }
 };
 </script>
  
@@ -248,6 +269,7 @@ export default {
   height: 60px;
   border: 1px solid white;
   border-radius: 5px;
+  transition: 500ms;
 }
 
 .home {
@@ -256,6 +278,7 @@ export default {
   height: 100vh;
   width: 100vw;
   position: relative;
+  transition: 5s;
 }
 
 .planet {

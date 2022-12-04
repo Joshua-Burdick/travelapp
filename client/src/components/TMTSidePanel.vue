@@ -117,7 +117,7 @@
       </div>
       <v-spacer></v-spacer>
       <v-btn 
-        
+        @click="openExpedia"
         color="yellow" 
         class="text-h6 px-5 py-7 font-weight-black mb-4"
       >
@@ -169,9 +169,25 @@ export default {
   },
   computed: {
     googleMapsLink() {
+      let transitMode = (() => {
+        switch (this.transit) {
+          case 'walk':
+            return 'data=!3m1!4b1!4m2!4m1!3e2';
+          case 'car':
+            return 'data=!3m1!4b1!4m2!4m1!3e0';
+          case 'train' || 'bus':
+            return 'data=!3m1!4b1!4m2!4m1!3e3'
+          case 'airplane':
+            return 'data=!3m1!4b1!4m2!4m1!3e4';
+          case 'bike':
+            return 'data=!3m1!4b1!4m2!4m1!3e1';
+          default:
+            return '';
+        }
+      });
       const STARTING_CORDS = `${localStorage.getItem('startingLat')},${localStorage.getItem('startingLng')}`;
       const ENDING_CORDS = `${this.$route.query.lat},${this.$route.query.lng}`;
-      return `https://www.google.com/maps/dir/${STARTING_CORDS}/${ENDING_CORDS}`;
+      return `https://www.google.com/maps/dir/${STARTING_CORDS}/${ENDING_CORDS}/${transitMode()}`;
     },
     sidePanelWidth() {
       return {
@@ -179,17 +195,11 @@ export default {
       };
     },
     budgetDisplay() {
-      if (this.budget == "0") {
-        return "Free";
-      } else if (this.budget == "1") {
-        return "$";
-      } else if (this.budget == "2") {
-        return "$$";
-      } else if (this.budget == "3") {
-        return "$$$";
-      } else if (this.budget == "4") {
-        return "$$$$";
+      let output = ''
+      for (let i = 0; i < this.budget; i++) {
+        output += '$'
       }
+      return output;
     },
   }
 }
