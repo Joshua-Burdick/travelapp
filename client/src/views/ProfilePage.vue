@@ -80,7 +80,6 @@
 
 <script>
 import { getRecentActivity } from "../utils/RecentActivity.js";
-import Storage from "../classes/Storage.js";
 
 export default {
   data() {
