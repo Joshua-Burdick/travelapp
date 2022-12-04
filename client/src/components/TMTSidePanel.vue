@@ -4,7 +4,19 @@
     class="side-panel-container"
   >
     <div 
-      class="side-panel px-6 py-8"
+      @click="$router.push({ name: 'home' })"
+      class="home-btn d-flex align-center px-5 py-1"
+    >
+      <v-icon 
+        small
+        class="home-btn-arrow mr-1"
+      >mdi-arrow-left</v-icon>
+      <div class="home-btn-text text-p">
+        search again
+      </div>
+    </div>
+    <div 
+      class="side-panel px-5 py-12"
       style="display: flex; flex-direction: column;"
     >
       <!-- title -->
@@ -87,8 +99,8 @@
             class="mr-2"
             x-large
             color="black"
-          >mdi-weather-partly-cloudy</v-icon>
-          {{ weather }}°C
+          >{{ weather.icon }}</v-icon>
+          {{ weather.temp }}°C
         </div>
       </div>
       
@@ -117,11 +129,12 @@
       </div>
       <v-spacer></v-spacer>
       <v-btn 
-        @click="openExpedia"
-        color="yellow" 
+        v-if="partnerLink"
+        @click="openPartnerLink"
+        color="success" 
         class="text-h6 px-5 py-7 font-weight-black mb-4"
       >
-        book now with expedia
+        Start Your Journey Now
       </v-btn>
       <v-btn 
         @click="openGoogleMaps"
@@ -153,7 +166,7 @@ export default {
     budget: String,
     transit: String,
     distance: Number,
-    weather: Number,
+    weather: Object,
   },
   emits: [
     "toggle-side-panel"
@@ -165,6 +178,9 @@ export default {
     openGoogleMaps() {
       console.log(this.googleMapsLink)
       window.open(this.googleMapsLink, '_blank');
+    },
+    openPartnerLink() {
+      window.open(this.partnerLink, '_blank');
     }
   },
   computed: {
@@ -190,6 +206,24 @@ export default {
       const STARTING_CORDS = `${localStorage.getItem('startingLat')},${localStorage.getItem('startingLng')}`;
       const ENDING_CORDS = `${this.$route.query.lat},${this.$route.query.lng}`;
       return `https://www.google.com/maps/dir/${STARTING_CORDS}/${ENDING_CORDS}/${transitMode()}`;
+    },
+    partnerLink() {
+      switch (this.transit) {
+        case 'walk':
+          return '';
+        case 'car':
+          return 'https://cars.wanderu.com/';
+        case 'train':
+          return 'https://www.wanderu.com/en-us/train-tickets/';
+        case 'bus':
+          return 'https://www.wanderu.com/en-us/bus-tickets/';
+        case 'airplane':
+          return 'https://www.expedia.com/Flights';
+        case 'bike':
+          return '';
+        default:
+          return '';
+      }
     },
     sidePanelWidth() {
       return {
@@ -232,5 +266,21 @@ export default {
   transition: 500ms;
   width: 450px;
   height: 100vh;
+}
+
+.home-btn {
+  cursor: pointer;
+  transition: 300ms;
+  top: 0;
+  left: 0;
+  position: absolute;
+  font-weight: 300;
+}
+.home-btn:hover .home-btn-text {
+  font-weight: 500;
+  text-decoration: underline;
+}
+.home-btn:hover .home-btn-arrow {
+  transform: translateX(-3px);
 }
 </style>

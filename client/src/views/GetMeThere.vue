@@ -122,8 +122,27 @@ export default {
       fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lng}&units=metric&APPID=${apiKey}`)
         .then((res) => res.json())
         .then((data) => {
-          this.weather = data
-          this.weather = this.weather.main.temp
+          console.log(data.weather[0].main);
+          let icon;
+          switch (data.weather[0].main) {
+            case "Rain":
+              icon = "mdi-weather-pouring";
+            case "light rain":
+              icon = "mdi-weather-rainy";
+            case "Clouds":
+              icon = "mdi-weather-cloudy";
+            case "Mist":
+              icon = "mdi-weather-fog";
+            case "Haze":
+              icon = "mdi-weather-cloudy-alert";
+            case "Clear":
+              icon = "mdi-weather-sunny";
+            default:
+              icon = "mdi-weather-sunny";
+          }
+          this.weather = {};
+          this.weather.icon = icon;
+          this.weather.temp = data.main.temp;
         });
     }
   },
