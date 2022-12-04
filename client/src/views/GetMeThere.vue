@@ -72,7 +72,7 @@ export default {
         scaleControl: false,
         streetViewControl: false,
         rotateControl: false,
-        fullscreenControl: false
+        fullscreenControl: false,
       },
 
       mapStyles: {
@@ -81,6 +81,7 @@ export default {
         top: '50%',
         left: '50%'
       },
+      
       introPlaying: true
     };
   },

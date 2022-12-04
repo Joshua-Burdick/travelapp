@@ -121,10 +121,13 @@ export default {
       });
     },
     redirectToSearch(activity) {
-      Storage.set("Latitude", activity.lat);
-      Storage.set("Longitude", activity.lng);
       this.$router.push({
-        name: 'search'
+        name: 'getmethere',
+        query: {
+          place: activity.name,
+          lat: activity.lat,
+          lng: activity.lng
+        },
       });
     },
     deleteSearchHistory() {

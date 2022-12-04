@@ -4,9 +4,8 @@
       <v-icon>mdi-arrow-left</v-icon>
       Home
     </v-btn>
-    <MapComponent id="map" />
 
-    <WeatherCard id="weather" />
+    <MapComponent id="map" />
 
     <p id="loc-site">
       Visit the location's <a id="site-link" target="_blank">website</a>
@@ -16,7 +15,6 @@
 
 <script>
 import MapComponent from "../components/MapComponent.vue";
-import WeatherCard from "../components/WeatherCard.vue";
 import Storage from "../classes/Storage.js";
 
 export default {
@@ -24,8 +22,7 @@ export default {
     return {};
   },
   components: {
-    MapComponent,
-    WeatherCard,
+    MapComponent
   },
   created() {
     document.title = "TravelApp - Search";
