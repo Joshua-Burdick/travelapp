@@ -128,16 +128,22 @@ export default {
           switch (data.weather[0].main) {
             case "Rain":
               icon = "mdi-weather-pouring";
+              break;
             case "light rain":
               icon = "mdi-weather-rainy";
+              break;
             case "Clouds":
               icon = "mdi-weather-cloudy";
+              break;
             case "Mist":
               icon = "mdi-weather-fog";
+              break;
             case "Haze":
               icon = "mdi-weather-cloudy-alert";
+              break;
             case "Clear":
               icon = "mdi-weather-sunny";
+              break;
             default:
               icon = "mdi-weather-sunny";
           }
