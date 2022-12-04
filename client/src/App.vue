@@ -17,7 +17,11 @@ export default {
         localStorage.setItem('startingLng', position.coords.longitude);
       });
     } catch (e) {
-      console.log(e);
+      // sets starting coords to snhu if permission is denied
+      // or location is not available
+      localStorage.setItem('startingLat', 43.03821660000001);
+      localStorage.setItem('startingLng', -71.4493554);
+      console.warn(e);
     }
   }
 }
