@@ -1,9 +1,19 @@
 <template>
-  <div class="home center">
-    <div v-if="$vuetify.breakpoint.mdAndUp" class="planet"></div>
+  <div 
+    :style="scaleStyle" 
+    class="home center"
+  >
+    <div 
+      v-if="$vuetify.breakpoint.mdAndUp"
+      :style="transitioningLocation ? { opacity: 0 } : {}" 
+      class="planet"
+    ></div>
 
     <!-- Login Button -->
-    <div class="login ma-5">
+    <div 
+      :style="transitioningLocation ? { opacity: 0 } : {}"
+      class="login ma-5"
+    >
       <v-btn 
         v-if="!user"
         @click.stop="login"
@@ -31,7 +41,10 @@
     </div>
     
     <!-- Search criteria -->
-    <div class="search">
+    <div
+      :style="transitioningLocation ? { opacity: 0 } : {}"
+      class="search"
+    >
       <v-btn
         @click="showBudget = !showBudget"
         fab
@@ -101,15 +114,17 @@
           <v-icon
             v-if="budgetTier <= budgetValue"
             @click="budgetValue = budgetTier"
+            class="mx-5"
             large
             color="green"
           >mdi-currency-usd</v-icon>
           <v-icon
             v-else
             @click="budgetValue = budgetTier"
+            class="mx-5"
             large
             color="red"
-          >mdi-currency-usd-off</v-icon>
+          >mdi-currency-usd</v-icon>
         </div>
       </div>
     </div>
@@ -132,7 +147,7 @@ export default {
       // gets logged in user
       user: localStorage.getItem('username'),
       // budget scale
-      budgetScale: 13,
+      budgetScale: 4,
       budgetValue: 1,
       showBudget: false,
       showTransitMode: false,
@@ -145,14 +160,16 @@ export default {
         'train'
       ],
       selectedTransit: 'airplane',
+      transitioningLocation: false,
+      scaleStyle: {}
     };
   },
   created() {
     document.title = "TravelApp";
   },
   async mounted() {
-    // Quarter-second delay to allow the API to load
-    await new Promise((resolve) => setTimeout(() => resolve(), 250));
+    // half-second delay to allow the API to load
+    await new Promise((resolve) => setTimeout(() => resolve(), 500));
 
     this.autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete")
@@ -170,14 +187,20 @@ export default {
         lng: LNG,
       });
 
-      Storage.set("Latitude", LAT);
-      Storage.set("Longitude", LNG);
+      this.transitioningLocation = true;
 
-      Storage.set("Website", PLACE.website);
-
-      this.$router.push({
-        name: "search"
-      });
+      setTimeout(() => {
+        this.$router.push({
+          name: "getmethere",
+          query: {
+            place: PLACE.name,
+            lat: LAT,
+            lng: LNG,
+            budget: this.budgetValue,
+            transit: this.selectedTransit,
+          },
+        });
+      }, 1500);
     });
   },
   computed: {
@@ -224,6 +247,17 @@ export default {
       });
     },
   },
+  watch: {
+    transitioningLocation(v) {
+      if (v) {
+        setTimeout(() => {
+          this.scaleStyle = {
+            transform: "scale(510)"
+          };
+        }, 500);
+      }
+    }
+  }
 };
 </script>
  
@@ -235,6 +269,7 @@ export default {
   height: 60px;
   border: 1px solid white;
   border-radius: 5px;
+  transition: 500ms;
 }
 
 .home {
@@ -243,6 +278,7 @@ export default {
   height: 100vh;
   width: 100vw;
   position: relative;
+  transition: 5s;
 }
 
 .planet {
