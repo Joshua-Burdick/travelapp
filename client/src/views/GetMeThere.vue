@@ -38,6 +38,8 @@ export default {
     this.startingLat = Number(localStorage.getItem("startingLat"));
     this.startingLng = Number(localStorage.getItem("startingLng"));
 
+    this.getWeather();
+
     setTimeout(() => {
       this.mapStyles = {}
     }, 50)
@@ -58,8 +60,9 @@ export default {
       startingLat: "",
       startingLng: "",
 
-      budget: "",
-      transit: "",
+      budget: null,
+      transit: null,
+      weather: null,
 
       showSidePanel: false,
 
@@ -112,6 +115,16 @@ export default {
     },
     deg2rad(deg) {
       return deg * (Math.PI / 180);
+    },
+    getWeather() {
+      // {{ Math.round(weather.main.temp) }}°F
+      let apiKey = '8b81c25b4594c01f9e7d4caec4793f7a';
+      fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lng}&units=metric&APPID=${apiKey}`)
+        .then((res) => res.json())
+        .then((data) => {
+          this.weather = data
+          this.weather = this.weather.main.temp
+        });
     }
   },
   computed: {
@@ -122,13 +135,6 @@ export default {
         this.lat,
         this.lng
       );
-    },
-    weather() {
-      return {
-        temp: 70,
-        humidity: 50,
-        wind: 10
-      };
     }
   }
 }

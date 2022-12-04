@@ -13,7 +13,7 @@
           class="text-h5"
           style="font-weight: 300"
         >
-          Lets Explore
+          Let's Explore
         </div>
         <div 
           class="text-h3 font-weight-black"
@@ -73,7 +73,7 @@
 
       <!-- weather -->
       <div class="mb-5">
-        <div 
+        <div
           class="text-h5"
           style="font-weight: 300"
         >
@@ -88,7 +88,7 @@
             x-large
             color="black"
           >mdi-weather-partly-cloudy</v-icon>
-          {{ weather.temp }}F
+          {{ weather }}°C
         </div>
       </div>
       
@@ -153,7 +153,7 @@ export default {
     budget: String,
     transit: String,
     distance: Number,
-    weather: Object,
+    weather: Number,
   },
   emits: [
     "toggle-side-panel"
@@ -175,8 +175,10 @@ export default {
             return 'data=!3m1!4b1!4m2!4m1!3e2';
           case 'car':
             return 'data=!3m1!4b1!4m2!4m1!3e0';
-          case 'train' || 'bus':
-            return 'data=!3m1!4b1!4m2!4m1!3e3'
+          case 'train':
+            return 'data=!3m1!4b1!4m2!4m1!3e3';
+          case 'bus':
+            return 'data=!3m1!4b1!4m2!4m1!3e3';
           case 'airplane':
             return 'data=!3m1!4b1!4m2!4m1!3e4';
           case 'bike':
