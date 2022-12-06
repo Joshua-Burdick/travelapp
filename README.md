@@ -45,9 +45,9 @@ If you do not already have an account, it is easy to create an account with the 
 
 Your profile page showcases your recent travel searches, as well as your registered email address. You can logout of your account from the profile page. 
 
-![image](https://user-images.githubusercontent.com/49251120/205367389-789cb662-ab9b-475d-b479-27fcd0b23564.png)
+![image](https://user-images.githubusercontent.com/49251120/206038028-32dc1bd0-3a2f-45e6-bef4-489e0369a4a9.png)
 
-The main search brings you to a google map of the area using google maps API. This is where you can plan your trip to locate what you would like to do. Soon you will be able to narrow down your search depending on the type of attractions, restaurants, or lodging you would like. 
+The main search brings you to a google map of the area using google maps API. This is where you can plan your trip to locate what you would like to do. It gives you some information on the side panel about your destination, and you can click on the buttons to see your destination on google maps, or start your journey to book a flight or get bus tickets etc. 
 
 ![image](https://user-images.githubusercontent.com/49251120/205367746-a7c06379-2e9b-4a5c-b4f8-49ca0238c691.png)
 
