@@ -23,6 +23,9 @@ or `npm i` in order to install the required dependencies
 ```
 npm run serve
 ```
+## Project Description
+
+Our application is a travel app that is an **all-in-one** way to plan your next vacation. With the help of [Google Maps API](https://developers.google.com/maps) and [Open Weather API](https://openweathermap.org/), you can not only search locations to travel to, but also, get current and future weather forecast for the area. When in the map you can see everything from shops, resturants, hotels, to tourist attractions all so you can plan the perfect trip.  On top of this, setting your travel preference and budget allows you to start your journey and buy a ticket for a plane, train, bus, or even rent a car.
 
 ### Project Diagrams
 
