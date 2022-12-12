@@ -191,7 +191,7 @@ export default {
 
       setTimeout(() => {
         this.$router.push({
-          name: "getmethere",
+          name: "search",
           query: {
             place: PLACE.name,
             lat: LAT,

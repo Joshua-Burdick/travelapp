@@ -8,7 +8,6 @@ import RegisterPage from '../views/RegisterPage.vue'
 import ErrorPage from '../views/404Error.vue'
 import WeatherPage from '../views/WeatherPage.vue'
 import ProfilePage from '../views/ProfilePage.vue'
-import GetMeThere from '../views/GetMeThere.vue'
 
 Vue.use(VueRouter)
 
@@ -42,11 +41,6 @@ const routes = [
     path: '/weather',
     name: 'weather',
     component: WeatherPage
-  },
-  {
-    path: '/getmethere',
-    name: 'getmethere',
-    component: GetMeThere
   },
   {
     path: '/*',

@@ -12,7 +12,7 @@
         class="home-btn-arrow mr-1"
       >mdi-arrow-left</v-icon>
       <div class="home-btn-text text-p">
-        search again
+        Search Again
       </div>
     </div>
     <div 
@@ -143,6 +143,10 @@
       >
         take a look on google maps  
       </v-btn>
+      <br>
+      <p>
+        Visit the location's <a id="site-link" target="_blank">website</a>
+      </p>
     </div>
     <div 
       @click="toggleSidePanel"
@@ -182,6 +186,10 @@ export default {
     openPartnerLink() {
       window.open(this.partnerLink, '_blank');
     }
+  },
+  mounted() {
+    // Create the external link to the city website
+    document.getElementById("site-link").href = this.website;
   },
   computed: {
     googleMapsLink() {
@@ -237,6 +245,9 @@ export default {
       }
       return output;
     },
+    locSite() {
+      return Storage.get("Website");
+    }
   }
 }
 </script>
