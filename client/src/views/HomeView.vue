@@ -175,6 +175,10 @@ export default {
       document.getElementById("autocomplete")
     );
 
+    Storage.set("Restaurants0", "");
+    Storage.set("Restaurants1", "");
+    Storage.set("Restaurants2", "");
+
     google.maps.event.addListener(this.autocomplete, "place_changed", () => {
       const PLACE = this.autocomplete.getPlace();
       const LAT = PLACE.geometry.location.lat();
@@ -186,6 +190,20 @@ export default {
         lat: LAT,
         lng: LNG,
       });
+
+      Storage.set("Latitude", LAT);
+      Storage.set("Longitude", LNG);
+      Storage.set("Website", PLACE.website);
+
+      let map = new google.maps.Map(document.getElementById('autocomplete'));
+      let service = new google.maps.places.PlacesService(map);
+      let request = {
+        location: new google.maps.LatLng(this.lat, this.lng),
+        radius: '1000',
+        type: ['restaurant'],
+      };
+
+      this.findNearby(service, request);
 
       this.transitioningLocation = true;
 
@@ -223,6 +241,21 @@ export default {
         }
       }
     },
+    lat: {
+      get() {
+          return Storage.get('Latitude');
+      },
+      set(newLat) {
+          Storage.set('Latitude', newLat);
+      }
+    },
+    lng: {
+      get() {
+          return Storage.get('Longitude');
+      },
+      set(newLng) {
+          Storage.set('Longitude', newLng);
+    },
     transitOnDisplay() {
       if (this.showTransitMode) {
         return {
@@ -246,6 +279,19 @@ export default {
         name: "profile"
       });
     },
+    findNearby(service, request) {
+
+      service.nearbySearch(request, (results, status, pagination) => {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          Storage.set(`Restaurants${this.resCount}`, JSON.stringify(results));
+          this.resCount++;
+        }
+
+        // If more than 20 results, up to 60
+        if (pagination && pagination.hasNextPage) {
+          pagination.nextPage();
+        }
+      });
   },
   watch: {
     transitioningLocation(v) {
