@@ -33,57 +33,68 @@ export default {
         fullscreenControl: false
       },
       currentPlace: null,
-      markers: [],
-      places: []
+      markers: []
     };
   },
-  mounted() {
+  async mounted() {
     this.center = {
-      lat: Number(Storage.get('Latitude')),
-      lng: Number(Storage.get('Longitude'))
-    }
-
-    let map = new google.maps.Map(document.getElementById('map-render'));
-    let service = new google.maps.places.PlacesService(map);
-    let request = {
-      location: new google.maps.LatLng(Number(Storage.get('Latitude')), Number(Storage.get('Longitude'))),
-      radius: '1000',
-      type: ['restaurant']
+      lat: this.lat,
+      lng: this.lng
     };
-    service.nearbySearch(request, (results, status) => {
-      console.log(`# Res: ${results.length}`)
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        for (let i = 0; i < results.length; i++) {
-          let place = results[i];
-          console.log(place);
-        }
-      }
-    });
+
+    await new Promise((resolve) => setTimeout(() => resolve(), 5000));
+    if (this.restaurants.first != undefined) this.placeMarkers(this.restaurants.first);
+    if (this.restaurants.second != undefined) this.placeMarkers(this.restaurants.second);
+    if (this.restaurants.third != undefined) this.placeMarkers(this.restaurants.third);
+
+    console.log(`Markers: ${JSON.stringify(this.markers)}`);
   },
   methods: {
     setPlace(place) {
       this.currentPlace = place;
     },
-    addMarker() {
-      if (this.currentPlace) {
-        const marker = {
-          lat: this.currentPlace.geometry.location.lat(),
-          lng: this.currentPlace.geometry.location.lng(),
-        };
-        this.markers.push({ position: marker });
-        this.places.push(this.currentPlace);
-        this.center = marker;
-        this.currentPlace = null;
+    addMarker(place) {
+      const marker = {
+        lat: place.geometry.location.lat,
+        lng: place.geometry.location.lng,
+      };
+      this.markers.push({ position: marker });
+    },
+    placeMarkers(list) {
+      let count = 0;
+
+      while(list[count] !== undefined) {
+        this.addMarker(list[count]);
+        count++;
+      }
+    }
+  },
+  computed: {
+    lat: {
+      get() {
+          return Number(Storage.get('Latitude'));
+      },
+      set(newLat) {
+          Storage.set('Latitude', newLat);
       }
     },
-    geolocate() {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-      });
+    lng: {
+      get() {
+          return Number(Storage.get('Longitude'));
+      },
+      set(newLng) {
+          Storage.set('Longitude', newLng);
+      }
     },
-  },
+    restaurants: {
+      get() {
+        return {
+          first: Storage.get("Restaurants0") != "" ? JSON.parse(Storage.get("Restaurants0")) : undefined,
+          second: Storage.get("Restaurants1") != "" ? JSON.parse(Storage.get("Restaurants1")) : undefined,
+          third: Storage.get("Restaurants2") != "" ? JSON.parse(Storage.get("Restaurants2")) : undefined
+        }
+      }
+    }
+  }
 };
 </script>
