@@ -12,7 +12,7 @@
         class="home-btn-arrow mr-1"
       >mdi-arrow-left</v-icon>
       <div class="home-btn-text text-p">
-        search again
+        Search Again
       </div>
     </div>
     <div 
@@ -102,6 +102,13 @@
           >{{ weather.icon }}</v-icon>
           {{ weather.temp }}°C
         </div>
+        <v-btn
+          text
+          @click="showForecast"
+          class="text-h6font-weight-black"
+        >
+          DAILY FORECAST
+        </v-btn>
       </div>
       
       <!-- transit -->
@@ -143,6 +150,10 @@
       >
         take a look on google maps  
       </v-btn>
+      <br>
+      <p>
+        Visit the location's <a id="site-link" target="_blank">website</a>
+      </p>
     </div>
     <div 
       @click="toggleSidePanel"
@@ -169,7 +180,8 @@ export default {
     weather: Object,
   },
   emits: [
-    "toggle-side-panel"
+    "toggle-side-panel",
+    "toggle-forecast"
   ],
   methods: {
     toggleSidePanel() {
@@ -181,7 +193,14 @@ export default {
     },
     openPartnerLink() {
       window.open(this.partnerLink, '_blank');
+    },
+    showForecast() {
+      this.$emit("toggle-forecast");
     }
+  },
+  mounted() {
+    // Create the external link to the city website
+    document.getElementById("site-link").href = this.website;
   },
   computed: {
     googleMapsLink() {
@@ -237,6 +256,9 @@ export default {
       }
       return output;
     },
+    locSite() {
+      return Storage.get("Website");
+    }
   }
 }
 </script>
@@ -246,7 +268,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: 3;
   height: 100vh;
   transition: 500ms;
   width: 400px;
