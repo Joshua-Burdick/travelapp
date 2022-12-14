@@ -3,12 +3,19 @@
     <SidePanel 
       v-if="!introPlaying"
       @toggle-side-panel="showSidePanel = !showSidePanel"
+      @toggle-forecast="showForecast = !showForecast"
       :showSidePanel="showSidePanel"
       :place="place"
       :budget="budget"
       :transit="transit"
       :distance="distance"
       :weather="weather"
+    />
+    <WeatherCard
+      v-if="!introPlaying"
+      @toggle-forecast="showForecast = !showForecast"
+      class="weather-forecast"
+      :showForecast="showForecast"
     />
     <GmapMap 
       :center="{ lat, lng }" 
@@ -29,12 +36,14 @@
 
 <script>
 import SidePanel from "../components/TMTSidePanel.vue";
+import WeatherCard from "../components/WeatherCard.vue";
 
 export default {
   components: {
-    SidePanel
+    SidePanel,
+    WeatherCard
   },
-  mounted() {
+  async mounted() {
     let { lat, lng, place, budget, transit } = this.$route.query;
     this.lat = Number(lat);
     this.lng = Number(lng);
@@ -56,6 +65,11 @@ export default {
         this.showSidePanel = true;
       }, 50)
     }, 650)
+
+    await new Promise((resolve) => setTimeout(() => resolve(), 750));
+    if (this.restaurants.first != undefined) this.placeMarkers(this.restaurants.first);
+    if (this.restaurants.second != undefined) this.placeMarkers(this.restaurants.second);
+    if (this.restaurants.third != undefined) this.placeMarkers(this.restaurants.third);
   },
   data: () => {
     return {
@@ -72,6 +86,7 @@ export default {
       weather: null,
 
       showSidePanel: false,
+      showForecast: false,
 
       options: {
         zoomControl: true,
@@ -89,10 +104,27 @@ export default {
         left: '50%'
       },
       
-      introPlaying: true
+      introPlaying: true,
+
+      markers: []
     };
   },
   methods: {
+    addMarker(place) {
+      const marker = {
+        lat: place.geometry.location.lat,
+        lng: place.geometry.location.lng,
+      };
+      this.markers.push({ position: marker });
+    },
+    placeMarkers(list) {
+      let count = 0;
+
+      while(list[count] !== undefined) {
+        this.addMarker(list[count]);
+        count++;
+      }
+    },
     getDistanceFromLatLongInMiles() {
       let R = 3958.8; // Radius of the Earth in miles
       let dLat = this.deg2rad(this.lat - this.startingLat); // deg2rad below
@@ -130,7 +162,6 @@ export default {
       fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lng}&units=metric&APPID=${apiKey}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data.weather[0].main);
           let icon;
           switch (data.weather[0].main) {
             case "Rain":
@@ -168,6 +199,15 @@ export default {
         this.lat,
         this.lng
       );
+    },
+    restaurants: {
+      get() {
+        return {
+          first: localStorage.getItem("Restaurants0") != "" ? JSON.parse(localStorage.getItem("Restaurants0")) : undefined,
+          second: localStorage.getItem("Restaurants1") != "" ? JSON.parse(localStorage.getItem("Restaurants1")) : undefined,
+          third: localStorage.getItem("Restaurants2") != "" ? JSON.parse(localStorage.getItem("Restaurants2")) : undefined
+        }
+      }
     }
   }
 }
@@ -180,11 +220,20 @@ export default {
   width: 100vw;
   position: relative;
 }
+
 .map-cover {
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   transition: 500ms;
+}
+
+.weather-forecast {
+  position: absolute;
+  width: 1000px;
+  left: 30%;
+  top: 0;
+  z-index: 4;
 }
 </style>

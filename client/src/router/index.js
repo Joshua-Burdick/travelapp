@@ -5,9 +5,8 @@ import HomeView from '../views/HomeView.vue'
 import SearchPage from '../views/SearchPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
-import ErrorPage from '../views/404Error.vue'
-import WeatherPage from '../views/WeatherPage.vue'
 import ProfilePage from '../views/ProfilePage.vue'
+import ErrorPage from '../views/404Error.vue'
 
 Vue.use(VueRouter)
 
@@ -36,11 +35,6 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: ProfilePage
-  },
-  {
-    path: '/weather',
-    name: 'weather',
-    component: WeatherPage
   },
   {
     path: '/*',

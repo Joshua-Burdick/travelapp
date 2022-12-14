@@ -161,7 +161,8 @@ export default {
       ],
       selectedTransit: 'airplane',
       transitioningLocation: false,
-      scaleStyle: {}
+      scaleStyle: {},
+      resCount: 0
     };
   },
   created() {
@@ -199,7 +200,7 @@ export default {
       let service = new google.maps.places.PlacesService(map);
       let request = {
         location: new google.maps.LatLng(this.lat, this.lng),
-        radius: '1000',
+        radius: '5000',
         type: ['restaurant'],
       };
 
@@ -255,6 +256,7 @@ export default {
       },
       set(newLng) {
           Storage.set('Longitude', newLng);
+      }
     },
     transitOnDisplay() {
       if (this.showTransitMode) {
@@ -292,6 +294,7 @@ export default {
           pagination.nextPage();
         }
       });
+    }
   },
   watch: {
     transitioningLocation(v) {
@@ -304,7 +307,7 @@ export default {
       }
     }
   }
-};
+}
 </script>
  
 <style scoped>
@@ -386,4 +389,3 @@ export default {
   transition: 400ms;
 }
 </style>
-

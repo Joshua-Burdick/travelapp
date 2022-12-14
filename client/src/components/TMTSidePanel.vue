@@ -102,6 +102,13 @@
           >{{ weather.icon }}</v-icon>
           {{ weather.temp }}°C
         </div>
+        <v-btn
+          text
+          @click="showForecast"
+          class="text-h6font-weight-black"
+        >
+          DAILY FORECAST
+        </v-btn>
       </div>
       
       <!-- transit -->
@@ -173,7 +180,8 @@ export default {
     weather: Object,
   },
   emits: [
-    "toggle-side-panel"
+    "toggle-side-panel",
+    "toggle-forecast"
   ],
   methods: {
     toggleSidePanel() {
@@ -185,6 +193,9 @@ export default {
     },
     openPartnerLink() {
       window.open(this.partnerLink, '_blank');
+    },
+    showForecast() {
+      this.$emit("toggle-forecast");
     }
   },
   mounted() {
@@ -257,7 +268,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: 3;
   height: 100vh;
   transition: 500ms;
   width: 400px;
