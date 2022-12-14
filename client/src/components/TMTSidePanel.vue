@@ -107,7 +107,7 @@
           @click="showForecast"
           class="text-h6font-weight-black"
         >
-          DAILY FORECAST
+          WEEKLY FORECAST
         </v-btn>
       </div>
       

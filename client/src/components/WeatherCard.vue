@@ -24,13 +24,11 @@
             :key="weather.id"
             :cols="weather.flex"
           >
-            <v-card color="rgba(255, 255, 255, 0.75)">
+            <v-card color="rgba(255, 255, 255, 0.8)">
               <v-card-title class="text-white text-h5 center" style="font-weight: 300">{{
-                forecast[index / 8]
+                index == 0 ? "Today" : forecast[index / 8]
               }}</v-card-title>
               <div class="center">
-                <div class="text-h6">{{ weather.main.temp }}°C</div>
-                <br>
                 <v-icon
                   class="mr-2"
                   x-large
@@ -38,6 +36,7 @@
                 >
                   {{ getIcon(weather) }}
                 </v-icon>
+                <div class="text-h6">{{ weather.main.temp }}°C</div>
               </div>
               <br />
               <v-divider class="mx-4"></v-divider>
