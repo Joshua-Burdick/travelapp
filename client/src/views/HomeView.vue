@@ -200,7 +200,7 @@ export default {
       let service = new google.maps.places.PlacesService(map);
       let request = {
         location: new google.maps.LatLng(this.lat, this.lng),
-        radius: '5000',
+        radius: '1000',
         type: ['restaurant'],
       };
 
@@ -307,7 +307,7 @@ export default {
       }
     }
   }
-}
+};
 </script>
  
 <style scoped>
