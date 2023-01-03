@@ -104,30 +104,11 @@ export default {
       this.forecast[0] = this.days[date.getDay()];
       let start = this.days.indexOf(this.forecast[0]);
 
-      this.forecast[1] = this.inRange(this.days, start + 1)
-        ? this.days[start + 1]
-        : this.days[0];
-      this.forecast[2] = this.inRange(this.days, start + 2)
-        ? this.days[start + 2]
-        : this.inRange(this.days, start + 1)
-        ? this.days[0]
-        : this.days[1];
-      this.forecast[3] = this.inRange(this.days, start + 3)
-        ? this.days[start + 3]
-        : this.inRange(this.days, start + 2)
-        ? this.days[0]
-        : this.inRange(this.days, start + 1)
-        ? this.days[1]
-        : this.days[2];
-      this.forecast[4] = this.inRange(this.days, start + 4)
-        ? this.days[start + 4]
-        : (this.inRange(this.days), start + 3)
-        ? this.days[0]
-        : this.inRange(this.days, start + 2)
-        ? this.days[1]
-        : this.inRange(this.days, start + 1)
-        ? this.days[2]
-        : this.days[3];
+      // Either set to the index or wrap around if it goes to the next week
+      // 7 is the length of the days list because there are 7 days in a week
+      for (let i = 0; i <= 4; i++) {
+        this.forecast[i] = this.inRange(this.days, start + i) ? this.days[start + i] : this.days[7 - i];
+      }
     },
     toggleForecast() {
       this.$emit("toggle-forecast");
